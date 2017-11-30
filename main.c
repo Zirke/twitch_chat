@@ -6,68 +6,127 @@
 #define MAX_SIZE_MESSAGE 300
 
 typedef struct chat_entry{
+    int points;   /* Messages will be given points and only messages above x amount will be shown */
     char timestamp[MAX_SIZE];
     char username[MAX_SIZE];
     char message[MAX_SIZE_MESSAGE];
 } chat_entry;
 
-int countAllEntries();
-void read_data(FILE*, int, chat_entry logs[]);
+typedef struct wordlist{
+  int points; /* In the wordlist, assign each word a point value */
+  char word[MAX_SIZE];
+} wordlist;
+
+int countAllEntries(FILE*);
+void read_data_log(FILE*, int, chat_entry logs[]);
+void read_wordlist(FILE*, int, wordlist words[]);
 void check_for_question(int, chat_entry logs[]);
+void assign_points(int, int, chat_entry logs[], wordlist words[]);
+void print_over_threshold(int, chat_entry logs[], int);
+int compare_points (const void * a, const void * b);
 
 int main(void){
 
-    FILE *chat_log = fopen("twitchlogs.txt", "r");
+    FILE *chat_log, *user_wordlist;
+    chat_log = fopen("twitchlogs.txt", "r");
+    user_wordlist = fopen("wordlist.txt", "r");
+    int total_entries_wordlist = countAllEntries(user_wordlist);
+    int total_entries_log = countAllEntries(chat_log);
+    int user_threshold = 0;
+    wordlist words[total_entries_wordlist];
+    chat_entry logs[total_entries_log];
+    read_wordlist(user_wordlist, total_entries_wordlist, words);
+    read_data_log(chat_log, total_entries_log, logs);
 
-    int total_entries = countAllEntries();
-    chat_entry logs[total_entries];
-    read_data(chat_log,total_entries,logs);
-    check_for_question(total_entries,logs);
+    assign_points(total_entries_log, total_entries_wordlist, logs, words);
+    
+    check_for_question(total_entries_log, logs);
 
+    printf("\nEnter amount of points to show messages equal to or exceeding that value: ");
+    scanf("%d",&user_threshold);
+    print_over_threshold(total_entries_log,logs,user_threshold);
+
+    fclose(user_wordlist);
     fclose(chat_log);
-
+    
+    
   return 0;
 }
 
-int countAllEntries(){
+int countAllEntries(FILE *datafile){
 
   int  totalLines = 1;
   char ch;
-  FILE *chat_log = fopen("twitchlogs.txt", "r");
 
-  while(!feof(chat_log)){
-    ch = fgetc(chat_log);
+  while(!feof(datafile)){
+    ch = fgetc(datafile);
 
     if(ch == '\n'){   /* Increment counter when encountering newline */
       ++totalLines;
     }
   }
-  fclose(chat_log);
+  rewind(datafile);
   return totalLines;
 }
 
 /* Function for reading data from file to struct */
-void read_data(FILE *chat_log, int total_entries, chat_entry logs[total_entries]){
+void read_data_log(FILE *chat_log, int total_entries_log, chat_entry logs[total_entries_log]){
 
   int i;
   char temp_timestamp[MAX_SIZE];
-  chat_entry data;
-  for(i = 0; i < total_entries; ++i)
-  {
+  chat_entry data = {0};
+  for(i = 0; i < total_entries_log; ++i){
       fscanf(chat_log," [%[^][]] %[^:] %*[:] %[^\n]",
             temp_timestamp,
             data.username,
             data.message);
       sscanf(temp_timestamp," %*s %s %*s",data.timestamp); /* Scan only hours, minutes, seconds */
-      //printf("Timestamp: %s |--| Username: %25s |--| Message: %s\n",data.timestamp,data.username,data.message);
     logs[i] = data; /* Transfer data from structs to array of structs */
   }
 }
 
-void check_for_question(int total_entries, chat_entry logs[total_entries]){
+void read_wordlist(FILE *user_wordlist, int total_entries_wordlist, wordlist words[total_entries_wordlist]){
 
   int i;
-  for(i = 0; i < total_entries; ++i){
+  wordlist data = {0};
+  for (i = 0; i < total_entries_wordlist; ++i){
+    fscanf(user_wordlist," %[^,] %*[,] %d",data.word, &data.points);
+    words[i] = data;
+  }
+}
+
+void assign_points(int total_entries_log, int total_entries_wordlist, chat_entry logs[total_entries_log], wordlist words[total_entries_wordlist]){
+
+  int i, j;
+  for (i = 0; i < total_entries_log; ++i){
+    for (j = 0; j < total_entries_wordlist; ++j){
+      if(strstr(logs[i].message, words[j].word) != NULL){
+      logs[i].points += words[j].points;
+      } 
+    }
+  }
+}
+
+void print_over_threshold(int total_entries_log, chat_entry logs[total_entries_log], int threshold){
+
+  int i;
+  chat_entry temp[total_entries_log];
+  for (i = 0; i < total_entries_log; ++i){
+      temp[i] = logs[i];
+  }
+  qsort(temp, total_entries_log, sizeof(chat_entry), compare_points);
+
+  for (i = 0; i < total_entries_log; ++i){
+    if(temp[i].points >= threshold){
+      printf("Points: %d |--| Timestamp: %s |--| Username: %25s |--| Message: %s\n",temp[i].points, temp[i].timestamp, temp[i].username, temp[i].message);
+    }
+  }
+}
+
+void check_for_question(int total_entries_log, chat_entry logs[total_entries_log]){
+
+  int i;
+  for(i = 0; i < total_entries_log; ++i){
     if(strstr(logs[i].message, "?") != NULL){
 
       printf("[%s] %s: %s\n",logs[i].timestamp,logs[i].username,logs[i].message);
@@ -101,4 +160,15 @@ void check_for_question(int total_entries, chat_entry logs[total_entries]){
       printf("[%s] %s: %s\n",logs[i].timestamp,logs[i].username,logs[i].message);
     }
   }
+}
+
+int compare_points (const void * a, const void * b){
+    chat_entry *ia = (chat_entry *)a;
+    chat_entry *ib = (chat_entry *)b;
+    if(ia->points > ib->points)
+        return -1;
+    else if (ia->points < ib->points)
+        return +1;
+    else 
+        return 0;
 }
