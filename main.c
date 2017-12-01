@@ -162,6 +162,18 @@ void check_for_question(int total_entries_log, chat_entry logs[total_entries_log
   }
 }
 
+/* void check_for_question(int total_entries_log, chat_entry logs[total_entries_log], int total_entries_wordlist, wordlist words[total_entries_wordlist]){
+
+  int i, j;
+  for(i = 0; i < total_entries_log; ++i){
+    for (j = 0; j < total_entries_wordlist; ++j){
+      if(strstr(logs[i].message, words[j].word) != NULL){
+        printf("[%s] %s: %s\n",logs[i].timestamp,logs[i].username,logs[i].message);
+      }
+    }
+  }
+} */
+
 int compare_points (const void * a, const void * b){
     chat_entry *ia = (chat_entry *)a;
     chat_entry *ib = (chat_entry *)b;
