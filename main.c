@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <signal.h>
 
 #define MAX_SIZE 50
 #define MAX_SIZE_MESSAGE 300
@@ -20,7 +21,7 @@ typedef struct wordlist{
 int countAllEntries(FILE*);
 void read_data_log(FILE*, int, chat_entry logs[]);
 void read_wordlist(FILE*, int, wordlist words[]);
-void check_for_question(int, chat_entry logs[]);
+void check_for_question(int, chat_entry logs[], int, wordlist words[]);
 void assign_points(int, int, chat_entry logs[], wordlist words[]);
 void print_over_threshold(int, chat_entry logs[], int);
 int compare_points (const void * a, const void * b);
@@ -40,7 +41,7 @@ int main(void){
 
     assign_points(total_entries_log, total_entries_wordlist, logs, words);
     
-    check_for_question(total_entries_log, logs);
+    check_for_question(total_entries_log, logs, total_entries_wordlist, words);
 
     printf("\nEnter amount of points to show messages equal to or exceeding that value: ");
     scanf("%d",&user_threshold);
@@ -123,56 +124,18 @@ void print_over_threshold(int total_entries_log, chat_entry logs[total_entries_l
   }
 }
 
-void check_for_question(int total_entries_log, chat_entry logs[total_entries_log]){
+void check_for_question(int total_entries_log, chat_entry logs[total_entries_log], int total_entries_wordlist, wordlist words[total_entries_wordlist]){
 
-  int i;
-  for(i = 0; i < total_entries_log; ++i){
-    if(strstr(logs[i].message, "?") != NULL){
-
-      printf("[%s] %s: %s\n",logs[i].timestamp,logs[i].username,logs[i].message);
-    }
-    else if(strstr(logs[i].message, "What") != NULL || strstr(logs[i].message, "what") != NULL){
-
-      printf("[%s] %s: %s\n",logs[i].timestamp,logs[i].username,logs[i].message);
-    }
-    else if(strstr(logs[i].message, "When") != NULL || strstr(logs[i].message, "when") != NULL){
-
-      printf("[%s] %s: %s\n",logs[i].timestamp,logs[i].username,logs[i].message);
-    }
-    else if(strstr(logs[i].message, "Why") != NULL || strstr(logs[i].message, "why") != NULL){
-
-      printf("[%s] %s: %s\n",logs[i].timestamp,logs[i].username,logs[i].message);
-    }
-    else if(strstr(logs[i].message, "Which") != NULL || strstr(logs[i].message, "which") != NULL){
-
-      printf("[%s] %s: %s\n",logs[i].timestamp,logs[i].username,logs[i].message);
-    }
-    else if(strstr(logs[i].message, "Where") != NULL || strstr(logs[i].message, "where") != NULL){
-
-      printf("[%s] %s: %s\n",logs[i].timestamp,logs[i].username,logs[i].message);
-    }
-    else if(strstr(logs[i].message, "Who") != NULL || strstr(logs[i].message, "who") != NULL){
-
-      printf("[%s] %s: %s\n",logs[i].timestamp,logs[i].username,logs[i].message);
-    }
-    else if(strstr(logs[i].message, "How") != NULL || strstr(logs[i].message, "how") != NULL){
-
-      printf("[%s] %s: %s\n",logs[i].timestamp,logs[i].username,logs[i].message);
-    }
-  }
-}
-
-/* void check_for_question(int total_entries_log, chat_entry logs[total_entries_log], int total_entries_wordlist, wordlist words[total_entries_wordlist]){
-
-  int i, j;
+  int i, j, k=0;
   for(i = 0; i < total_entries_log; ++i){
     for (j = 0; j < total_entries_wordlist; ++j){
       if(strstr(logs[i].message, words[j].word) != NULL){
-        printf("[%s] %s: %s\n",logs[i].timestamp,logs[i].username,logs[i].message);
+          printf("[%s] %s: %s\n",logs[i].timestamp,logs[i].username,logs[i].message); 
+          break;
       }
     }
   }
-} */
+}
 
 int compare_points (const void * a, const void * b){
     chat_entry *ia = (chat_entry *)a;
