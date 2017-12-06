@@ -36,8 +36,9 @@ void read_wordlist(FILE*, int, wordlist words[]);
 void check_for_question(int, chat_entry logs[], int, wordlist words[]);
 void assign_points(int, int, chat_entry logs[], wordlist words[]);
 void print_over_threshold(int, chat_entry logs[], int);
-void time_in_stream(int, chat_entry logs[]);
-void timestamp_to_seconds(int total_entries_log, chat_entry logs[], time_in_hms *new_logs[]);
+int stream_start();
+void time_in_stream(int, chat_entry logs[], int);
+void timestamp_to_seconds(int total_entries_log, chat_entry logs[], time_in_hms new_logs[]);
 int compare_points (const void * a, const void * b);
 
 int main(void){
@@ -47,20 +48,22 @@ int main(void){
     user_wordlist = fopen("wordlist.txt", "r");
     int total_entries_wordlist = countAllEntries(user_wordlist);
     int total_entries_log = countAllEntries(chat_log);
-    int user_threshold = 0;
+    int user_threshold = 0, user_stream_start = 0;
     wordlist *words = malloc(sizeof(wordlist) * total_entries_wordlist);
     chat_entry *logs = malloc(sizeof(chat_entry) * total_entries_log);
     read_wordlist(user_wordlist, total_entries_wordlist, words);
     read_data_log(chat_log, total_entries_log, logs);
-    time_in_stream(total_entries_log, logs);
+    
+    user_stream_start = stream_start();
+    time_in_stream(total_entries_log, logs, user_stream_start);
 
-    assign_points(total_entries_log, total_entries_wordlist, logs, words);
+    /*assign_points(total_entries_log, total_entries_wordlist, logs, words);
     
     check_for_question(total_entries_log, logs, total_entries_wordlist, words);
 
     printf("\nEnter amount of points to show messages equal to or exceeding that value: ");
     scanf("%d",&user_threshold);
-    print_over_threshold(total_entries_log,logs,user_threshold);
+    print_over_threshold(total_entries_log,logs,user_threshold);*/
 
     fclose(user_wordlist);
     fclose(chat_log);
@@ -154,32 +157,53 @@ void check_for_question(int total_entries_log, chat_entry logs[], int total_entr
   }
 }
 
-void time_in_stream(int total_entries_log, chat_entry logs[]){
+int stream_start(){
+
+  char user_stream_start[MAX_SIZE], temp_h[MAX_SIZE], temp_m[MAX_SIZE], temp_s[MAX_SIZE];
+  int stream_start_seconds = 0;
+
+  printf("Enter time of stream start in format HH:MM:SS > ");
+  scanf("%s",user_stream_start);
+  sscanf(user_stream_start," %[^:] %*[:] %[^:] %*[:] %s",temp_h,temp_m,temp_s);
+  stream_start_seconds = (atoi(temp_h)*HOURS) + (atoi(temp_m)*MINUTES) + atoi(temp_s);
+
+  return stream_start_seconds;
+}
+
+void time_in_stream(int total_entries_log, chat_entry logs[], int user_input){
 
   /*char temp_h[MAX_SIZE], temp_m[MAX_SIZE], temp_s[MAX_SIZE];*/ 
-  int i;
+  int i, time = 0, temp = 0;
   time_in_hms *new_logs = malloc(sizeof(time_in_hms) * total_entries_log);
 
   for (i = 0; i < total_entries_log; ++i){
     *new_logs[i].username = *logs[i].username;
     *new_logs[i].message = *logs[i].message;
   }
+  timestamp_to_seconds(total_entries_log, logs, new_logs);
 
-  timestamp_to_seconds(total_entries_log, logs, &new_logs);
+  for(i = 0; i < total_entries_log; ++i){
+    temp = new_logs[i].seconds;
+    time = temp - user_input;
+    new_logs[i].hours = time / HOURS;
+    time = time % HOURS;
+    new_logs[i].minutes = time / MINUTES;
+    time = time % MINUTES;
+    new_logs[i].seconds = time;
+    printf("After stream: [%d:%d:%d]\n",new_logs[i].hours,new_logs[i].minutes,new_logs[i].seconds);
+  }
 
 
 }
 
-void timestamp_to_seconds(int total_entries_log, chat_entry logs[], time_in_hms *new_logs[]){
+void timestamp_to_seconds(int total_entries_log, chat_entry logs[], time_in_hms new_logs[]){
 
   char temp_h[MAX_SIZE], temp_m[MAX_SIZE], temp_s[MAX_SIZE]; 
   int i;
 
   for (i = 0; i < total_entries_log; ++i){
     sscanf(logs[i].timestamp," %[^:] %*[:] %[^:] %*[:] %s",temp_h,temp_m,temp_s);
-    new_logs[i]->seconds = (atoi(temp_h)*HOURS) + (atoi(temp_m)*MINUTES) + atoi(temp_s);
-    printf("Hello\n");
-    printf("%d\n",new_logs[i]->seconds);
+    new_logs[i].seconds = (atoi(temp_h)*HOURS) + (atoi(temp_m)*MINUTES) + atoi(temp_s);
   }
 }
 
