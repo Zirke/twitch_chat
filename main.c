@@ -168,11 +168,12 @@ void message_categoriser(chat_entry *logs){
   int question_total_entry = countAllEntries(fp);
   wordlist questions[question_total_entry];
   chat_entry messages[question_total_entry];
+  int total_message = 0;
   
   read_category_database(*fp, question_total_entry, questions);
-  message_category_saver(questions, messages, question_total_entry, logs);
+  message_category_saver(questions, messages, question_total_entry, logs, &total_message);
   
-  for(int i = 0; i < question_total_entry; i++){
+  for(int i = 0; i < total_message; i++){
     printf("[%s] %s: %s\n",messages[i].timestamp, messages[i].username, messages[i].message);
   }
 
@@ -188,7 +189,9 @@ void read_category_database(FILE fp, int question_total_entry, wordlist question
   } 
 }
 
-void message_category_saver(wordlist questions[], chat_entry messages[], int question_total_entry, chat_entry *logs){
+void message_category_saver(wordlist questions[], chat_entry messages[], 
+  int question_total_entry, chat_entry *logs, int* total_message){
+  
   int i, j, k=0;
   for(i = 0; i < question_total_entry; ++i){
     for (j = 0; j < question_total_entry; ++j){
@@ -199,6 +202,7 @@ void message_category_saver(wordlist questions[], chat_entry messages[], int que
       }
     }
   }
+  (*total_message) = k;
 
 }
 
