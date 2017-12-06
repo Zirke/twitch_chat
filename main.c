@@ -9,83 +9,89 @@
 #define HOURS (MINUTES*60)
 
 
-typedef struct chat_entry{
+typedef struct chatlog{
   int points;   /* Messages will be given points and only messages above x amount will be shown */
   char timestamp[MAX_SIZE];
   char username[MAX_SIZE];
   char message[MAX_SIZE_MESSAGE];
-} chat_entry;
+} chatlog;
 
 typedef struct wordlist{
   int points; /* In the wordlist, assign each word a point value */
   char word[MAX_SIZE];
 } wordlist;
 
-typedef struct time_in_hms{
+typedef struct time{
   int points;
   int hours;
   int minutes;
   int seconds;
   char username[MAX_SIZE];
   char message[MAX_SIZE_MESSAGE];
-} time_in_hms;
+} time;
 
-int countAllEntries(FILE*);
-void read_data_log(FILE*, int, chat_entry logs[]);
+/* Read and count functions */
+int count_all_entries(FILE*);
+void read_data_log(FILE*, int, chatlog logs[]);
 void read_wordlist(FILE*, int, wordlist words[]);
-void check_for_question(int, chat_entry logs[], int, wordlist words[], time_in_hms new_time_logs[], int, int);
-void assign_points(int, int, chat_entry logs[], wordlist words[]);
-void print_over_threshold(int, chat_entry logs[], int);
-void user_navigation(int, chat_entry logs[], int, wordlist words[], time_in_hms new_time_logs[]);
 int stream_start(int*);
-void time_in_stream(int, chat_entry logs[], time_in_hms new_time_logs[], int);
-void timestamp_to_seconds(int total_entries_log, chat_entry logs[], time_in_hms new_time_logs[]);
+/*Filtration and Print functions*/
+void whitelist(int, chatlog logs[], int, wordlist words[], time logs_hms[], int, int);
+void assign_points(int, int, chatlog logs[], wordlist words[]);
+void print_over_threshold(int, chatlog logs[], int);
+void user_navigation(int, chatlog logs[], int, wordlist words[], time logs_hms[]);
+void time_in_stream(int, chatlog logs[], time logs_hms[], int);
+/* Calc functions */
+void timestamp_to_seconds(int total_entries_log, chatlog logs[], time logs_hms[]);
+/* qsort compare functions */
 int compare_points (const void * a, const void * b);
 
 int main(void){
 
-    FILE *chat_log, *user_wordlist;
-    chat_log = fopen("twitchlogs.txt", "r");
-    user_wordlist = fopen("wordlist.txt", "r");
-    int total_entries_wordlist = countAllEntries(user_wordlist);
-    int total_entries_log = countAllEntries(chat_log);
-    int user_threshold = 0;
-    wordlist *words = malloc(sizeof(wordlist) * total_entries_wordlist);
-    chat_entry *logs = malloc(sizeof(chat_entry) * total_entries_log);
-    time_in_hms *new_time_logs = malloc(sizeof(time_in_hms) * total_entries_log);
-    read_wordlist(user_wordlist, total_entries_wordlist, words);
-    read_data_log(chat_log, total_entries_log, logs);
+  FILE *chat_log, *user_wordlist;
+  chat_log = fopen("twitchlogs.txt", "r");
+  user_wordlist = fopen("wordlist.txt", "r");
+
+  int total_entries_wordlist = count_all_entries(user_wordlist);
+  int total_entries_log = count_all_entries(chat_log);
+  int user_threshold = 0;
+
+  wordlist *words = malloc(sizeof(wordlist) * total_entries_wordlist);
+  chatlog *logs = malloc(sizeof(chatlog) * total_entries_log);
+  time *logs_hms = malloc(sizeof(time) * total_entries_log);
+
+  read_wordlist(user_wordlist, total_entries_wordlist, words);
+  read_data_log(chat_log, total_entries_log, logs);
     
-    user_navigation(total_entries_log, logs, total_entries_wordlist, words, new_time_logs);
+  user_navigation(total_entries_log, logs, total_entries_wordlist, words, logs_hms);
     
 
 
 
-    /*assign_points(total_entries_log, total_entries_wordlist, logs, words);
+  /*assign_points(total_entries_log, total_entries_wordlist, logs, words);
     
-    check_for_question(total_entries_log, logs, total_entries_wordlist, words);
+  whitelist(total_entries_log, logs, total_entries_wordlist, words);
 
-    printf("\nEnter amount of points to show messages equal to or exceeding that value: ");
-    scanf("%d",&user_threshold);
-    print_over_threshold(total_entries_log,logs,user_threshold);*/
+  printf("\nEnter amount of points to show messages equal to or exceeding that value: ");
+  scanf("%d",&user_threshold);
+  print_over_threshold(total_entries_log,logs,user_threshold);*/
 
-    fclose(user_wordlist);
-    fclose(chat_log);
-    free(words);
-    free(logs);
+  fclose(user_wordlist);
+  fclose(chat_log);
+  free(words);
+  free(logs);
     
     
   return 0;
 }
 
-int countAllEntries(FILE *datafile){
+int count_all_entries(FILE *datafile){
 
   int  totalLines = 1;
   char ch;
 
   while(!feof(datafile)){
     ch = fgetc(datafile);
-
     if(ch == '\n'){   /* Increment counter when encountering newline */
       ++totalLines;
     }
@@ -95,11 +101,11 @@ int countAllEntries(FILE *datafile){
 }
 
 /* Function for reading data from file to struct */
-void read_data_log(FILE *chat_log, int total_entries_log, chat_entry logs[]){
+void read_data_log(FILE *chat_log, int total_entries_log, chatlog logs[]){
 
   int i;
   char temp_timestamp[MAX_SIZE];
-  chat_entry data = {0};
+  chatlog data = {0};
   for(i = 0; i < total_entries_log; ++i){
       fscanf(chat_log," [%[^][]] %[^:] %*[:] %[^\n]",
                                       temp_timestamp,
@@ -120,7 +126,7 @@ void read_wordlist(FILE *user_wordlist, int total_entries_wordlist, wordlist wor
   }
 }
 
-void assign_points(int total_entries_log, int total_entries_wordlist, chat_entry logs[], wordlist words[]){
+void assign_points(int total_entries_log, int total_entries_wordlist, chatlog logs[], wordlist words[]){
 
   int i, j;
   for (i = 0; i < total_entries_log; ++i){
@@ -132,14 +138,14 @@ void assign_points(int total_entries_log, int total_entries_wordlist, chat_entry
   }
 }
 
-void print_over_threshold(int total_entries_log, chat_entry logs[], int threshold){
+void print_over_threshold(int total_entries_log, chatlog logs[], int threshold){
 
   int i;
-  chat_entry *temp = malloc(sizeof(chat_entry) * total_entries_log);
+  chatlog *temp = malloc(sizeof(chatlog) * total_entries_log);
   for (i = 0; i < total_entries_log; ++i){
     temp[i] = logs[i];
   }
-  qsort(temp, total_entries_log, sizeof(chat_entry), compare_points);
+  qsort(temp, total_entries_log, sizeof(chatlog), compare_points);
 
   for (i = 0; i < total_entries_log; ++i){
     if(temp[i].points >= threshold){
@@ -148,7 +154,7 @@ void print_over_threshold(int total_entries_log, chat_entry logs[], int threshol
   }
 }
 
-void check_for_question(int total_entries_log, chat_entry logs[], int total_entries_wordlist, wordlist words[], time_in_hms new_time_logs[], int input, int show_before){
+void whitelist(int total_entries_log, chatlog logs[], int total_entries_wordlist, wordlist words[], time logs_hms[], int input, int show_before){
 
   int i, j;
   if(input == 1){
@@ -164,8 +170,8 @@ void check_for_question(int total_entries_log, chat_entry logs[], int total_entr
   if(input == 2 && show_before == 1){
     for(i = 0; i < total_entries_log; ++i){
       for (j = 0; j < total_entries_wordlist; ++j){
-        if(strstr(new_time_logs[i].message, words[j].word) != NULL){
-          printf("[%d:%d:%d] %s: %s\n",new_time_logs[i].hours,new_time_logs[i].minutes,new_time_logs[i].seconds,new_time_logs[i].username,new_time_logs[i].message); 
+        if(strstr(logs_hms[i].message, words[j].word) != NULL){
+          printf("[%d:%d:%d] %s: %s\n",logs_hms[i].hours,logs_hms[i].minutes,logs_hms[i].seconds,logs_hms[i].username,logs_hms[i].message); 
           break;
         }
       }
@@ -174,8 +180,8 @@ void check_for_question(int total_entries_log, chat_entry logs[], int total_entr
   if(input == 2 && show_before == 0){
     for(i = 0; i < total_entries_log; ++i){
       for (j = 0; j < total_entries_wordlist; ++j){
-        if(strstr(new_time_logs[i].message, words[j].word) != NULL && (new_time_logs[i].hours >= 0 && new_time_logs[i].minutes >= 0 && new_time_logs[i].seconds >= 0)){
-          printf("[%d:%d:%d] %s: %s\n",new_time_logs[i].hours,new_time_logs[i].minutes,new_time_logs[i].seconds,new_time_logs[i].username,new_time_logs[i].message); 
+        if(strstr(logs_hms[i].message, words[j].word) != NULL && (logs_hms[i].hours >= 0 && logs_hms[i].minutes >= 0 && logs_hms[i].seconds >= 0)){
+          printf("[%d:%d:%d] %s: %s\n",logs_hms[i].hours,logs_hms[i].minutes,logs_hms[i].seconds,logs_hms[i].username,logs_hms[i].message); 
           break;
         }
       }
@@ -183,7 +189,7 @@ void check_for_question(int total_entries_log, chat_entry logs[], int total_entr
   }
   else if(show_before != 1 && show_before != 0){
     printf("Incorrect input, please try again.\n\n");
-    user_navigation(total_entries_log, logs, total_entries_wordlist, words, new_time_logs);
+    user_navigation(total_entries_log, logs, total_entries_wordlist, words, logs_hms);
   }
 }
 
@@ -204,7 +210,7 @@ int stream_start(int* show_before){
   return stream_start_seconds;
 }
 
-void user_navigation(int total_entries_log, chat_entry logs[], int total_entries_wordlist, wordlist words[], time_in_hms new_time_logs[]){
+void user_navigation(int total_entries_log, chatlog logs[], int total_entries_wordlist, wordlist words[], time logs_hms[]){
 
   int user_stream_start = 0, user_navigation = 0;
   int show_before;
@@ -217,51 +223,50 @@ void user_navigation(int total_entries_log, chat_entry logs[], int total_entries
   printf("Select an option by entering the number to the left of your choice.\nPress (9) to exit. > ");
   scanf("%d",&user_navigation);
   switch(user_navigation){
-    case(1): check_for_question(total_entries_log, logs, total_entries_wordlist, words, new_time_logs, user_navigation, 0); break;
-    case(2): {user_stream_start = stream_start(&show_before); time_in_stream(total_entries_log, logs, new_time_logs, user_stream_start); 
-              check_for_question(total_entries_log, logs, total_entries_wordlist, words, new_time_logs, user_navigation, show_before); break;}
+    case(1): whitelist(total_entries_log, logs, total_entries_wordlist, words, logs_hms, user_navigation, 0); break;
+    case(2): {user_stream_start = stream_start(&show_before); time_in_stream(total_entries_log, logs, logs_hms, user_stream_start); 
+              whitelist(total_entries_log, logs, total_entries_wordlist, words, logs_hms, user_navigation, show_before); break;}
     case(9): printf("Exiting.\n"); break;
   }
   
 }
 
-void time_in_stream(int total_entries_log, chat_entry logs[], time_in_hms new_time_logs[], int user_input){
+void time_in_stream(int total_entries_log, chatlog logs[], time logs_hms[], int user_input){
 
-  /*char temp_h[MAX_SIZE], temp_m[MAX_SIZE], temp_s[MAX_SIZE];*/ 
   int i, time = 0, temp = 0;
 
   for (i = 0; i < total_entries_log; ++i){
-    memcpy(new_time_logs[i].username, logs[i].username, strlen(logs[i].username)+1);
-    memcpy(new_time_logs[i].message, logs[i].message, strlen(logs[i].message)+1);
+    memcpy(logs_hms[i].username, logs[i].username, strlen(logs[i].username)+1);
+    memcpy(logs_hms[i].message, logs[i].message, strlen(logs[i].message)+1);
   }
-  timestamp_to_seconds(total_entries_log, logs, new_time_logs);
+  timestamp_to_seconds(total_entries_log, logs, logs_hms);
 
   for(i = 0; i < total_entries_log; ++i){
-    temp = new_time_logs[i].seconds;
+    temp = logs_hms[i].seconds;
     time = temp - user_input;
-    new_time_logs[i].hours = time / HOURS;
+    logs_hms[i].hours = time / HOURS;
     time = time % HOURS;
-    new_time_logs[i].minutes = time / MINUTES;
+    logs_hms[i].minutes = time / MINUTES;
     time = time % MINUTES;
-    new_time_logs[i].seconds = time;
+    logs_hms[i].seconds = time;
   }
 }
 
-void timestamp_to_seconds(int total_entries_log, chat_entry logs[], time_in_hms new_time_logs[]){
+void timestamp_to_seconds(int total_entries_log, chatlog logs[], time logs_hms[]){
 
   char temp_h[MAX_SIZE], temp_m[MAX_SIZE], temp_s[MAX_SIZE]; 
   int i;
 
   for (i = 0; i < total_entries_log; ++i){
     sscanf(logs[i].timestamp," %[^:] %*[:] %[^:] %*[:] %s",temp_h,temp_m,temp_s);
-    new_time_logs[i].seconds = (atoi(temp_h)*HOURS) + (atoi(temp_m)*MINUTES) + atoi(temp_s);
+    logs_hms[i].seconds = (atoi(temp_h)*HOURS) + (atoi(temp_m)*MINUTES) + atoi(temp_s);
   }
 }
 
 int compare_points (const void * a, const void * b){
 
-    chat_entry *ia = (chat_entry *)a;
-    chat_entry *ib = (chat_entry *)b;
+    chatlog *ia = (chatlog *)a;
+    chatlog *ib = (chatlog *)b;
     if(ia->points > ib->points){
       return -1;
     }
