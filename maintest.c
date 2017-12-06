@@ -23,7 +23,7 @@ void read_data_log(int *total_entries_log, chat_entry logs[]);
 void read_wordlist(int *total_entries_wordlist, wordlist words[]);
 void check_for_question(int, chat_entry logs[], int, wordlist words[]);
 void assign_points(int, int, chat_entry logs[], wordlist words[]);
-void print_over_threshold(int, chat_entry logs[], int); g
+void print_over_threshold(int, chat_entry logs[], int);
 int compare_points (const void * a, const void * b);
 
 int main(void){
