@@ -18,6 +18,11 @@ typedef struct wordlist{
   char word[MAX_SIZE];
 } wordlist;
 
+typedef struct category{
+  char name[MAX_SIZE]; 
+  int place;
+} category;
+
 int countAllEntries(FILE*);
 void read_data_log(FILE*, int, chat_entry logs[]);
 void read_wordlist(FILE*, int, wordlist words[]);
@@ -25,10 +30,12 @@ void check_for_question(int, chat_entry logs[], int, wordlist words[]);
 void assign_points(int, int, chat_entry logs[], wordlist words[]);
 void print_over_threshold(int, chat_entry logs[], int);
 int compare_points (const void * a, const void * b);
+void message_categoriser(void);
+void read_category_database(FILE fp, int question_total_entry, wordlist questions[]);
 
 int main(void){
 
-    FILE *chat_log, *user_wordlist;
+    /*FILE *chat_log, *user_wordlist;
     chat_log = fopen("twitchlogs.txt", "r");
     user_wordlist = fopen("wordlist.txt", "r");
     int total_entries_wordlist = countAllEntries(user_wordlist);
@@ -49,8 +56,9 @@ int main(void){
 
     fclose(user_wordlist);
     fclose(chat_log);
-    free(words);
+    free(words);*/
     
+    message_categoriser();
     
   return 0;
 }
@@ -151,3 +159,32 @@ int compare_points (const void * a, const void * b){
       return 0;
     }
 }
+
+void message_categoriser(void){
+  
+  FILE *fp;
+  fp = fopen("question.txt", "r");
+  /*int question_total_entry = countAllEntries(fp);*/
+  int question_total_entry = 20;
+  wordlist questions[question_total_entry];
+  read_category_database(*fp, question_total_entry, questions);
+  
+  for(int i = 0; i < question_total_entry; i++){
+    printf("%s", questions[i].word);
+  }
+
+  fclose(fp);
+}
+
+void read_category_database(FILE fp, int question_total_entry, wordlist questions[]){
+  int i;
+  wordlist data = {0};
+  for (i = 0; i < question_total_entry; ++i){
+    fscanf(&fp," %[^ ]",data.word);
+    questions[i] = data;
+  } 
+}
+
+
+
+
