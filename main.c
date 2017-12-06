@@ -33,12 +33,13 @@ typedef struct time_in_hms{
 int countAllEntries(FILE*);
 void read_data_log(FILE*, int, chat_entry logs[]);
 void read_wordlist(FILE*, int, wordlist words[]);
-void check_for_question(int, chat_entry logs[], int, wordlist words[]);
+void check_for_question(int, chat_entry logs[], int, wordlist words[], time_in_hms new_time_logs[], int, int);
 void assign_points(int, int, chat_entry logs[], wordlist words[]);
 void print_over_threshold(int, chat_entry logs[], int);
-int stream_start();
-void time_in_stream(int, chat_entry logs[], int);
-void timestamp_to_seconds(int total_entries_log, chat_entry logs[], time_in_hms new_logs[]);
+void user_navigation(int, chat_entry logs[], int, wordlist words[], time_in_hms new_time_logs[]);
+int stream_start(int*);
+void time_in_stream(int, chat_entry logs[], time_in_hms new_time_logs[], int);
+void timestamp_to_seconds(int total_entries_log, chat_entry logs[], time_in_hms new_time_logs[]);
 int compare_points (const void * a, const void * b);
 
 int main(void){
@@ -48,14 +49,17 @@ int main(void){
     user_wordlist = fopen("wordlist.txt", "r");
     int total_entries_wordlist = countAllEntries(user_wordlist);
     int total_entries_log = countAllEntries(chat_log);
-    int user_threshold = 0, user_stream_start = 0;
+    int user_threshold = 0;
     wordlist *words = malloc(sizeof(wordlist) * total_entries_wordlist);
     chat_entry *logs = malloc(sizeof(chat_entry) * total_entries_log);
+    time_in_hms *new_time_logs = malloc(sizeof(time_in_hms) * total_entries_log);
     read_wordlist(user_wordlist, total_entries_wordlist, words);
     read_data_log(chat_log, total_entries_log, logs);
     
-    user_stream_start = stream_start();
-    time_in_stream(total_entries_log, logs, user_stream_start);
+    user_navigation(total_entries_log, logs, total_entries_wordlist, words, new_time_logs);
+    
+
+
 
     /*assign_points(total_entries_log, total_entries_wordlist, logs, words);
     
@@ -144,66 +148,113 @@ void print_over_threshold(int total_entries_log, chat_entry logs[], int threshol
   }
 }
 
-void check_for_question(int total_entries_log, chat_entry logs[], int total_entries_wordlist, wordlist words[]){
+void check_for_question(int total_entries_log, chat_entry logs[], int total_entries_wordlist, wordlist words[], time_in_hms new_time_logs[], int input, int show_before){
 
   int i, j;
-  for(i = 0; i < total_entries_log; ++i){
-    for (j = 0; j < total_entries_wordlist; ++j){
-      if(strstr(logs[i].message, words[j].word) != NULL){
-        printf("[%s] %s: %s\n",logs[i].timestamp,logs[i].username,logs[i].message); 
-        break;
+  if(input == 1){
+    for(i = 0; i < total_entries_log; ++i){
+      for (j = 0; j < total_entries_wordlist; ++j){
+        if(strstr(logs[i].message, words[j].word) != NULL){
+          printf("[%s] %s: %s\n",logs[i].timestamp,logs[i].username,logs[i].message); 
+          break;
+        }
       }
     }
   }
+  if(input == 2 && show_before == 1){
+    for(i = 0; i < total_entries_log; ++i){
+      for (j = 0; j < total_entries_wordlist; ++j){
+        if(strstr(new_time_logs[i].message, words[j].word) != NULL){
+          printf("[%d:%d:%d] %s: %s\n",new_time_logs[i].hours,new_time_logs[i].minutes,new_time_logs[i].seconds,new_time_logs[i].username,new_time_logs[i].message); 
+          break;
+        }
+      }
+    }
+  }
+  if(input == 2 && show_before == 0){
+    for(i = 0; i < total_entries_log; ++i){
+      for (j = 0; j < total_entries_wordlist; ++j){
+        if(strstr(new_time_logs[i].message, words[j].word) != NULL && (new_time_logs[i].hours >= 0 && new_time_logs[i].minutes >= 0 && new_time_logs[i].seconds >= 0)){
+          printf("[%d:%d:%d] %s: %s\n",new_time_logs[i].hours,new_time_logs[i].minutes,new_time_logs[i].seconds,new_time_logs[i].username,new_time_logs[i].message); 
+          break;
+        }
+      }
+    }
+  }
+  else if(show_before != 1 && show_before != 0){
+    printf("Incorrect input, please try again.\n\n");
+    user_navigation(total_entries_log, logs, total_entries_wordlist, words, new_time_logs);
+  }
 }
 
-int stream_start(){
+int stream_start(int* show_before){
 
   char user_stream_start[MAX_SIZE], temp_h[MAX_SIZE], temp_m[MAX_SIZE], temp_s[MAX_SIZE];
-  int stream_start_seconds = 0;
+  int stream_start_seconds = 0, temp = 0;
 
   printf("Enter time of stream start in format HH:MM:SS > ");
-  scanf("%s",user_stream_start);
+  scanf(" %s",user_stream_start);
   sscanf(user_stream_start," %[^:] %*[:] %[^:] %*[:] %s",temp_h,temp_m,temp_s);
   stream_start_seconds = (atoi(temp_h)*HOURS) + (atoi(temp_m)*MINUTES) + atoi(temp_s);
+  printf("\nWould you like to show messages before the stream started?\n");
+  printf("Enter 1 for yes or 0 for no > ");
+  scanf(" %d",&temp);
+  *show_before = temp;
 
   return stream_start_seconds;
 }
 
-void time_in_stream(int total_entries_log, chat_entry logs[], int user_input){
+void user_navigation(int total_entries_log, chat_entry logs[], int total_entries_wordlist, wordlist words[], time_in_hms new_time_logs[]){
+
+  int user_stream_start = 0, user_navigation = 0;
+  int show_before;
+  printf("Choose a prefered method of timestamp display:\n\n");
+  printf("____________________________________\n");
+  printf("|1) Time of day.                   |\n");
+  printf("|2) Time according to stream start.|\n");
+  printf("|9) Exit.                          |\n");
+  printf("|----------------------------------|\n\n");
+  printf("Select an option by entering the number to the left of your choice.\nPress (9) to exit. > ");
+  scanf("%d",&user_navigation);
+  switch(user_navigation){
+    case(1): check_for_question(total_entries_log, logs, total_entries_wordlist, words, new_time_logs, user_navigation, 0); break;
+    case(2): {user_stream_start = stream_start(&show_before); time_in_stream(total_entries_log, logs, new_time_logs, user_stream_start); 
+              check_for_question(total_entries_log, logs, total_entries_wordlist, words, new_time_logs, user_navigation, show_before); break;}
+    case(9): printf("Exiting.\n"); break;
+  }
+  
+}
+
+void time_in_stream(int total_entries_log, chat_entry logs[], time_in_hms new_time_logs[], int user_input){
 
   /*char temp_h[MAX_SIZE], temp_m[MAX_SIZE], temp_s[MAX_SIZE];*/ 
   int i, time = 0, temp = 0;
-  time_in_hms *new_logs = malloc(sizeof(time_in_hms) * total_entries_log);
 
   for (i = 0; i < total_entries_log; ++i){
-    *new_logs[i].username = *logs[i].username;
-    *new_logs[i].message = *logs[i].message;
+    memcpy(new_time_logs[i].username, logs[i].username, strlen(logs[i].username)+1);
+    memcpy(new_time_logs[i].message, logs[i].message, strlen(logs[i].message)+1);
   }
-  timestamp_to_seconds(total_entries_log, logs, new_logs);
+  timestamp_to_seconds(total_entries_log, logs, new_time_logs);
 
   for(i = 0; i < total_entries_log; ++i){
-    temp = new_logs[i].seconds;
+    temp = new_time_logs[i].seconds;
     time = temp - user_input;
-    new_logs[i].hours = time / HOURS;
+    new_time_logs[i].hours = time / HOURS;
     time = time % HOURS;
-    new_logs[i].minutes = time / MINUTES;
+    new_time_logs[i].minutes = time / MINUTES;
     time = time % MINUTES;
-    new_logs[i].seconds = time;
-    printf("After stream: [%d:%d:%d]\n",new_logs[i].hours,new_logs[i].minutes,new_logs[i].seconds);
+    new_time_logs[i].seconds = time;
   }
-
-
 }
 
-void timestamp_to_seconds(int total_entries_log, chat_entry logs[], time_in_hms new_logs[]){
+void timestamp_to_seconds(int total_entries_log, chat_entry logs[], time_in_hms new_time_logs[]){
 
   char temp_h[MAX_SIZE], temp_m[MAX_SIZE], temp_s[MAX_SIZE]; 
   int i;
 
   for (i = 0; i < total_entries_log; ++i){
     sscanf(logs[i].timestamp," %[^:] %*[:] %[^:] %*[:] %s",temp_h,temp_m,temp_s);
-    new_logs[i].seconds = (atoi(temp_h)*HOURS) + (atoi(temp_m)*MINUTES) + atoi(temp_s);
+    new_time_logs[i].seconds = (atoi(temp_h)*HOURS) + (atoi(temp_m)*MINUTES) + atoi(temp_s);
   }
 }
 
