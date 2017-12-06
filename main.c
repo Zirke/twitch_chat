@@ -32,7 +32,8 @@ void print_over_threshold(int, chat_entry logs[], int);
 int compare_points (const void * a, const void * b);
 void message_categoriser(chat_entry *logs);
 void read_category_database(FILE fp, int question_total_entry, wordlist questions[]);
-void message_category_saver(wordlist questions[], chat_entry messages[], int question_total_entry, chat_entry *logs);
+void message_category_saver(wordlist questions[], chat_entry messages[], 
+  int question_total_entry, chat_entry *logs, int* total_message);
 
 int main(void){
 
@@ -49,7 +50,7 @@ int main(void){
 
     assign_points(total_entries_log, total_entries_wordlist, logs, words);
     
-    check_for_question(total_entries_log, logs, total_entries_wordlist, words);
+    //check_for_question(total_entries_log, logs, total_entries_wordlist, words);
 
     //printf("\nEnter amount of points to show messages equal to or exceeding that value: ");
     //scanf("%d",&user_threshold);
@@ -166,9 +167,11 @@ void message_categoriser(chat_entry *logs){
   FILE *fp;
   fp = fopen("question.txt", "r");
   int question_total_entry = countAllEntries(fp);
-  wordlist questions[question_total_entry];
-  chat_entry messages[question_total_entry];
+  int count = 0;
+  wordlist *questions = malloc(sizeof(wordlist) * question_total_entry);
+  chat_entry *messages = malloc(sizeof(chat_entry) * question_total_entry);
   int total_message = 0;
+  
   
   read_category_database(*fp, question_total_entry, questions);
   message_category_saver(questions, messages, question_total_entry, logs, &total_message);
@@ -205,6 +208,3 @@ void message_category_saver(wordlist questions[], chat_entry messages[],
   (*total_message) = k;
 
 }
-
-
-
