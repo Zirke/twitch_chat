@@ -30,12 +30,13 @@ void check_for_question(int, chat_entry logs[], int, wordlist words[]);
 void assign_points(int, int, chat_entry logs[], wordlist words[]);
 void print_over_threshold(int, chat_entry logs[], int);
 int compare_points (const void * a, const void * b);
-void message_categoriser(void);
+void message_categoriser(chat_entry *logs);
 void read_category_database(FILE fp, int question_total_entry, wordlist questions[]);
+void message_category_saver(wordlist questions[], chat_entry messages[], int question_total_entry, chat_entry *logs);
 
 int main(void){
 
-    /*FILE *chat_log, *user_wordlist;
+    FILE *chat_log, *user_wordlist;
     chat_log = fopen("twitchlogs.txt", "r");
     user_wordlist = fopen("wordlist.txt", "r");
     int total_entries_wordlist = countAllEntries(user_wordlist);
@@ -50,15 +51,15 @@ int main(void){
     
     check_for_question(total_entries_log, logs, total_entries_wordlist, words);
 
-    printf("\nEnter amount of points to show messages equal to or exceeding that value: ");
-    scanf("%d",&user_threshold);
-    print_over_threshold(total_entries_log,logs,user_threshold);
+    //printf("\nEnter amount of points to show messages equal to or exceeding that value: ");
+    //scanf("%d",&user_threshold);
+    //print_over_threshold(total_entries_log,logs,user_threshold);
 
     fclose(user_wordlist);
     fclose(chat_log);
-    free(words);*/
+    free(words);
     
-    message_categoriser();
+    message_categoriser(logs);
     
   return 0;
 }
@@ -160,17 +161,19 @@ int compare_points (const void * a, const void * b){
     }
 }
 
-void message_categoriser(void){
+void message_categoriser(chat_entry *logs){
   
   FILE *fp;
   fp = fopen("question.txt", "r");
-  /*int question_total_entry = countAllEntries(fp);*/
-  int question_total_entry = 20;
+  int question_total_entry = countAllEntries(fp);
   wordlist questions[question_total_entry];
+  chat_entry messages[question_total_entry];
+  
   read_category_database(*fp, question_total_entry, questions);
+  message_category_saver(questions, messages, question_total_entry, logs);
   
   for(int i = 0; i < question_total_entry; i++){
-    printf("%s", questions[i].word);
+    printf("[%s] %s: %s\n",messages[i].timestamp, messages[i].username, messages[i].message);
   }
 
   fclose(fp);
@@ -180,11 +183,24 @@ void read_category_database(FILE fp, int question_total_entry, wordlist question
   int i;
   wordlist data = {0};
   for (i = 0; i < question_total_entry; ++i){
-    fscanf(&fp," %[^ ]",data.word);
+    fscanf(&fp," %[^\n]",data.word);
     questions[i] = data;
   } 
 }
 
+void message_category_saver(wordlist questions[], chat_entry messages[], int question_total_entry, chat_entry *logs){
+  int i, j, k=0;
+  for(i = 0; i < question_total_entry; ++i){
+    for (j = 0; j < question_total_entry; ++j){
+      if(strstr(logs[i].message, questions[j].word) != NULL){
+        messages[k] = logs[i];
+        k++; 
+        break;
+      }
+    }
+  }
+
+}
 
 
 

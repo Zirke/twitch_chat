@@ -1,15 +1,8 @@
-?, 1
-What, 3
-what, 2
-When, 3
-when, 2
-Why, 3
-why, 2
-Which, 3
-which, 2
-Who, 3
-who, 2
-How, 3
-how, 2
-Where, 3
-where, 2
+?
+What
+When
+Why
+Which
+who
+how
+where
