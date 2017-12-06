@@ -46,7 +46,7 @@ Currently there are two ways to display timestamps in messages:
 *Time after stream start* will display the timestamp as time after the stream started, with an option to show messages before the stream went live.
 To select either, simply press the number to the left of your prefered option when prompted.
 If you select *Time after stream start* you will have to enter the time your stream started in the UTC timezone (or the same timezone as used in the log file).
-This is done when promted using the *HH:MM:SS* format. **REMEMBER THE COLONS (':'))**
+This is done when promted using the *HH:MM:SS* format. **REMEMBER THE COLONS (':')**
 
 ##### Example
 ```
@@ -67,3 +67,5 @@ Would you like to show messages from before the stream started?> 1
 [0:40:23] Abimaster21: I don't like white people.
 [1:23:30] Zirke: This message was sent 1 hour 23 minutes and 30 seconds into the stream.
 ```
+
+The messages that show minus values as timestamps are messages sent before the stream went live.
