@@ -5,12 +5,15 @@
 
 #define MAX_SIZE 50
 #define MAX_SIZE_MESSAGE 300
+#define MINUTES 60
+#define HOURS (MINUTES*60)
+
 
 typedef struct chat_entry{
-    int points;   /* Messages will be given points and only messages above x amount will be shown */
-    char timestamp[MAX_SIZE];
-    char username[MAX_SIZE];
-    char message[MAX_SIZE_MESSAGE];
+  int points;   /* Messages will be given points and only messages above x amount will be shown */
+  char timestamp[MAX_SIZE];
+  char username[MAX_SIZE];
+  char message[MAX_SIZE_MESSAGE];
 } chat_entry;
 
 typedef struct wordlist{
@@ -18,12 +21,23 @@ typedef struct wordlist{
   char word[MAX_SIZE];
 } wordlist;
 
+typedef struct time_in_hms{
+  int points;
+  int hours;
+  int minutes;
+  int seconds;
+  char username[MAX_SIZE];
+  char message[MAX_SIZE_MESSAGE];
+} time_in_hms;
+
 int countAllEntries(FILE*);
 void read_data_log(FILE*, int, chat_entry logs[]);
 void read_wordlist(FILE*, int, wordlist words[]);
 void check_for_question(int, chat_entry logs[], int, wordlist words[]);
 void assign_points(int, int, chat_entry logs[], wordlist words[]);
 void print_over_threshold(int, chat_entry logs[], int);
+void time_in_stream(int, chat_entry logs[]);
+void timestamp_to_seconds(int total_entries_log, chat_entry logs[], time_in_hms *new_logs[]);
 int compare_points (const void * a, const void * b);
 
 int main(void){
@@ -38,6 +52,7 @@ int main(void){
     chat_entry *logs = malloc(sizeof(chat_entry) * total_entries_log);
     read_wordlist(user_wordlist, total_entries_wordlist, words);
     read_data_log(chat_log, total_entries_log, logs);
+    time_in_stream(total_entries_log, logs);
 
     assign_points(total_entries_log, total_entries_wordlist, logs, words);
     
@@ -50,6 +65,7 @@ int main(void){
     fclose(user_wordlist);
     fclose(chat_log);
     free(words);
+    free(logs);
     
     
   return 0;
@@ -138,7 +154,37 @@ void check_for_question(int total_entries_log, chat_entry logs[], int total_entr
   }
 }
 
+void time_in_stream(int total_entries_log, chat_entry logs[]){
+
+  /*char temp_h[MAX_SIZE], temp_m[MAX_SIZE], temp_s[MAX_SIZE];*/ 
+  int i;
+  time_in_hms *new_logs = malloc(sizeof(time_in_hms) * total_entries_log);
+
+  for (i = 0; i < total_entries_log; ++i){
+    *new_logs[i].username = *logs[i].username;
+    *new_logs[i].message = *logs[i].message;
+  }
+
+  timestamp_to_seconds(total_entries_log, logs, &new_logs);
+
+
+}
+
+void timestamp_to_seconds(int total_entries_log, chat_entry logs[], time_in_hms *new_logs[]){
+
+  char temp_h[MAX_SIZE], temp_m[MAX_SIZE], temp_s[MAX_SIZE]; 
+  int i;
+
+  for (i = 0; i < total_entries_log; ++i){
+    sscanf(logs[i].timestamp," %[^:] %*[:] %[^:] %*[:] %s",temp_h,temp_m,temp_s);
+    new_logs[i]->seconds = (atoi(temp_h)*HOURS) + (atoi(temp_m)*MINUTES) + atoi(temp_s);
+    printf("Hello\n");
+    printf("%d\n",new_logs[i]->seconds);
+  }
+}
+
 int compare_points (const void * a, const void * b){
+
     chat_entry *ia = (chat_entry *)a;
     chat_entry *ib = (chat_entry *)b;
     if(ia->points > ib->points){
