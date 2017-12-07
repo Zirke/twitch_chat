@@ -382,3 +382,771 @@ barrier
 ignite
 exhaust
 flash
+AATROX
+AHRI
+AKALI
+ALISTAR
+AMUMU
+ANIVIA
+ANNIE
+ASHE
+AURELION SOL
+AZIR
+BARD
+BLITZCRANK
+BRAND
+BRAUM
+CAITLYN
+CAMILLE
+CASSIOPEIA
+CHO'GATH
+CORKI
+DARIUS
+DIANA
+DR. MUNDO
+DRAVEN
+EKKO
+ELISE
+EVELYNN
+EZREAL
+FIDDLESTICKS
+FIORA
+FIZZ
+GALIO
+GANGPLANK
+GAREN
+GNAR
+GRAGAS
+GRAVES
+HECARIM
+HEIMERDINGER
+ILLAOI
+IRELIA
+IVERN
+JANN
+JARVAN IV
+JAX
+JAYCE
+JHIN
+JINX
+KALISTA
+KARMA
+KARTHUS
+KASSADIN
+KATARINA
+KAYLE
+KAYN
+KENNEN
+KHA'ZIX
+KINDRED
+KLED
+KOG'MAW
+LEBLANC
+LEE SIN
+LEONA
+LISSANDRA
+LUCIAN
+LULU
+LUX
+MALPHITE
+MALZAHAR
+MAOKAI
+MASTER YI
+MISS FORTUNE
+MORDEKAISER
+MORGANA
+NAMI
+NASUS
+NAUTILUS
+NIDALEE
+NOCTURNE
+NUNU
+OLAF
+ORIANNA
+ORNN
+PANTHEON
+POPPY
+QUINN
+RAKAN
+RAMMUS
+REK'SAI
+RENEKTON
+RENGAR
+RIVEN
+RUMBLE
+RYZE
+SEJUANI
+SHACO
+SHEN
+SHYVANA
+SINGED
+SION
+SIVIR
+SKARNER
+SONA
+SORAKA
+SWAIN
+SYNDRA
+TAHM KENCH
+TALIYAH
+TALON
+TARIC
+TEEMO
+THRESH
+TRISTANA
+TRUNDLE
+TRYNDAMERE
+TWISTED FATE
+TWITCH
+UDYR
+URGOT
+VARUS
+VAYNE
+VEIGAR
+VEL'KOZ
+VI
+VIKTOR
+VLADIMIR
+VOLIBEAR
+WARWICK
+WUKONG
+XAYAH
+XERATH
+XIN ZHAO
+YASUO
+YORICK
+ZAC
+ZED
+ZIGGS
+ZILEAN
+ZOE
+ZYRA
+ABYSSAL MASK
+ADAPTIVE HELM
+AEGIS OF THE LEGION
+AETHER WISP
+AMPLIFYING TOME
+ANCIENT COIN
+ARCANE SWEEPER
+ARCANE SWEEPER
+ARCHANGEL'S STAFF
+ARDENT CENSER
+ATHENE'S UNHOLY GRAIL
+B. F. SWORD
+BAMI'S CINDER
+BANNER OF COMMAND
+BANSHEE'S VEIL
+BERSERKER'S GREAVES
+BILGEWATER CUTLASS
+BLADE OF THE RUINED KING
+BLASTING WAND
+BOOTS OF MOBILITY
+BOOTS OF SPEED
+BOOTS OF SWIFTNESS
+BRAMBLE VEST
+BRAWLER'S GLOVES
+CATALYST OF AEONS
+CAULFIELD'S WARHAMMER
+CHAIN VEST
+CHALICE OF HARMONY
+CIRCLET OF THE IRON SOLARI
+CLOAK OF AGILITY
+CLOAK OF STARS
+CLOTH ARMOR
+COMMENCING STOPWATCH
+CONTROL WARD
+CORRUPTING POTION
+COSMIC SHACKLE
+CRYSTALLINE BRACER
+CULL
+DAGGER
+DARK MATTER SCYTHE
+DARK STAR SIGIL
+DEAD MAN'S PLATE
+DEATH'S DANCE
+DEATH'S DAUGHTER
+DERVISH BLADE
+DIET PORO-SNAX
+DORAN'S BLADE
+DORAN'S RING
+DORAN'S SHIELD
+DUSKBLADE OF DRAKTHARR
+EDGE OF NIGHT
+ELIXIR OF IRON
+ELIXIR OF SORCERY
+ELIXIR OF WRATH
+ENTROPY FIELD
+ESPRESSO SNAX
+ESSENCE REAVER
+EXECUTIONER'S CALLING
+EXPLORER'S WARD
+EYE OF THE EQUINOX
+EYE OF THE HERALD
+EYE OF THE OASIS
+EYE OF THE WATCHERS
+FACE OF THE MOUNTAIN
+FAERIE CHARM
+FARSIGHT ALTERATION
+FIENDISH CODEX
+FIRE AT WILL
+FLASH ZONE
+FORBIDDEN IDOL
+FORGEFIRE CAPE
+FROST QUEEN'S CLAIM
+FROSTED SNAX
+FROSTFANG
+FROZEN HEART
+FROZEN MALLET
+GARGOYLE STONEPLATE
+GIANT SLAYER
+GIANT'S BELT
+GLACIAL SHROUD
+GOLDEN TRANSCENDENCE
+GRAVITY BOOTS
+GREATER STEALTH TOTEM
+GREATER VISION TOTEM
+GUARDIAN ANGEL
+GUARDIAN'S HAMMER
+GUARDIAN'S HORN
+GUARDIAN'S ORB
+GUINSOO'S RAGEBLADE
+HAUNTING GUISE
+HEALTH POTION
+HEXDRINKER
+HEXTECH GLP-800
+HEXTECH GUNBLADE
+HEXTECH PROTOBELT-01
+HEXTECH REVOLVER
+HUNTER'S MACHETE
+HUNTER'S POTION
+HUNTER'S TALISMAN
+ICEBORN GAUNTLET
+INFERNAL MASK
+INFINITY EDGE
+IONIAN BOOTS OF LUCIDITY
+JAURIM'S FIST
+KINDLEGEM
+KIRCHEIS SHARD
+KNIGHT'S VOW
+LAST WHISPER
+LIANDRY'S TORMENT
+LICH BANE
+LOCKET OF THE IRON SOLARI
+LONG SWORD
+LORD DOMINIK'S REGARDS
+LORD VAN DAMM'S PILLAGER
+LOST CHAPTER
+LUDEN'S ECHO
+MANAMUNE
+MAW OF MALMORTIUS
+MEJAI'S SOULSTEALER
+MERCURIAL SCIMITAR
+MERCURY'S TREADS
+MIKAEL'S CRUCIBLE
+MOLTEN EDGE
+MOONFLAIR SPELLBLADE
+MORELLONOMICON
+MORTAL REMINDER
+MURAMANA
+NASHOR'S TOOTH
+NEEDLESSLY LARGE ROD
+NEGATRON CLOAK
+NEXUS SIEGE: SIEGE WEAPON SLOT
+NINJA TABI
+NOMAD'S MEDALLION
+NULL-MAGIC MANTLE
+OHMWRECKER
+ORACLE ALTERATION
+ORACLE'S EXTRACT
+OVERLORD'S BLOODMAIL
+PERFECT HEX CORE
+PHAGE
+PHANTOM DANCER
+PICKAXE
+POACHER'S DIRK
+PORO-SNAX
+PORT PAD
+PROTOTYPE HEX CORE
+QUICKSILVER SASH
+RABADON'S DEATHCAP
+RABADON'S DEATHCROWN
+RAINBOW SNAX PARTY PACK!
+RAISE MORALE
+RANDUIN'S OMEN
+RAPID FIRECANNON
+RAPTOR CLOAK
+RAVENOUS HYDRA
+RECURVE BOW
+REDEMPTION
+REFILLABLE POTION
+REJUVENATION BEAD
+RELIC SHIELD
+RIGHTEOUS GLORY
+ROD OF AGES
+RUBY CRYSTAL
+RUBY SIGHTSTONE
+RUNAAN'S HURRICANE
+RYLAI'S CRYSTAL SCEPTER
+SALVATION
+SANGUINE BLADE
+SAPPHIRE CRYSTAL
+SEEKER'S ARMGUARD
+SEER STONE (TRINKET)
+SERAPH'S EMBRACE
+SERRATED DIRK
+SHEEN
+SHIELD TOTEM
+SIEGE BALLISTA
+SIEGE REFUND
+SIEGE SIGHT WARDER
+SIEGE TELEPORT
+SIGHTSTONE
+SINGULARITY LANTERN
+SKIRMISHER'S SABRE
+SLIGHTLY MAGICAL BOOTS
+SORCERER'S SHOES
+SOUL ANCHOR
+SPECTRE'S COWL
+SPELLTHIEF'S EDGE
+SPIRIT VISAGE
+STALKER'S BLADE
+STATIKK SHIV
+STERAK'S GAGE
+STINGER
+STOPWATCH
+SUNFIRE CAPE
+SUPER SPICY SNAX
+SWEEPING LENS
+TALISMAN OF ASCENSION
+TARGON'S BRACE
+TEAR OF THE GODDESS
+THE BLACK CLEAVER
+THE BLACK SPEAR
+THE BLOODTHIRSTER
+THE DARK SEAL
+THE HEX CORE MK-1
+THE HEX CORE MK-2
+THE LIGHTBRINGER
+THE OBSIDIAN CLEAVER
+THORNMAIL
+TIAMAT
+TITANIC HYDRA
+TOTAL BISCUIT OF REJUVENATION
+TOWER: BEAM OF RUINATION
+TOWER: STORM BULWARK
+TRACKER'S KNIFE
+TRINITY FORCE
+TRINITY FUSION
+VAMPIRIC SCEPTER
+VANGUARD BANNER
+VOID STAFF
+WARDEN'S MAIL
+WARDING TOTEM
+WARMOG'S ARMOR
+WICKED HATCHET
+WIT'S END
+WOOGLET'S WITCHCAP
+WOOGLET'S WITCHCROWN
+YOUMUU'S GHOSTBLADE
+ZEAL
+ZEKE'S CONVERGENCE
+ZHONYA'S HOURGLASS
+ZHONYA'S PARADOX
+ZZ'ROT PORTAL
+GHOST
+HEAL
+CLARITY
+TO THE KING!
+PORO TOSS
+MARK
+CLEANSE
+TELEPORT
+SMITE
+BARRIER
+IGNITE
+EXHAUST
+FLASH
+Aatrox
+Ahri
+Akali
+Alistar
+Amumu
+Anivia
+Annie
+Ashe
+Aurelion sol
+Azir
+Bard
+Blitzcrank
+Brand
+Braum
+Caitlyn
+Camille
+Cassiopeia
+Cho'gath
+Corki
+Darius
+Diana
+Dr. Mundo
+Draven
+Ekko
+Elise
+Evelynn
+Ezreal
+Fiddlesticks
+Fiora
+Fizz
+Galio
+Gangplank
+Garen
+Gnar
+Gragas
+Graves
+Hecarim
+Heimerdinger
+Illaoi
+Irelia
+Ivern
+Jann
+Jarvan iv
+Jax
+Jayce
+Jhin
+Jinx
+Kalista
+Karma
+Karthus
+Kassadin
+Katarina
+Kayle
+Kayn
+Kennen
+Kha'zix
+Kindred
+Kled
+Kog'maw
+Leblanc
+Lee sin
+Leona
+Lissandra
+Lucian
+Lulu
+Lux
+Malphite
+Malzahar
+Maokai
+Master yi
+Miss fortune
+Mordekaiser
+Morgana
+Nami
+Nasus
+Nautilus
+Nidalee
+Nocturne
+Nunu
+Olaf
+Orianna
+Ornn
+Pantheon
+Poppy
+Quinn
+Rakan
+Rammus
+Rek'sai
+Renekton
+Rengar
+Riven
+Rumble
+Ryze
+Sejuani
+Shaco
+Shen
+Shyvana
+Singed
+Sion
+Sivir
+Skarner
+Sona
+Soraka
+Swain
+Syndra
+Tahm kench
+Taliyah
+Talon
+Taric
+Teemo
+Thresh
+Tristana
+Trundle
+Tryndamere
+Twisted fate
+Twitch
+Udyr
+Urgot
+Varus
+Vayne
+Veigar
+Vel'koz
+Vi
+Viktor
+Vladimir
+Volibear
+Warwick
+Wukong
+Xayah
+Xerath
+Xin zhao
+Yasuo
+Yorick
+Zac
+Zed
+Ziggs
+Zilean
+Zoe
+Zyra
+Abyssal mask
+Adaptive helm
+Aegis of the legion
+Aether wisp
+Amplifying tome
+Ancient coin
+Arcane sweeper
+Arcane sweeper
+Archangel's staff
+Ardent censer
+Athene's unholy grail
+B. F. Sword
+Bami's cinder
+Banner of command
+Banshee's veil
+Berserker's greaves
+Bilgewater cutlass
+Blade of the ruined king
+Blasting wand
+Boots of mobility
+Boots of speed
+Boots of swiftness
+Bramble vest
+Brawler's gloves
+Catalyst of aeons
+Caulfield's warhammer
+Chain vest
+Chalice of harmony
+Circlet of the iron solari
+Cloak of agility
+Cloak of stars
+Cloth armor
+Commencing stopwatch
+Control ward
+Corrupting potion
+Cosmic shackle
+Crystalline bracer
+Cull
+Dagger
+Dark matter scythe
+Dark star sigil
+Dead man's plate
+Death's dance
+Death's daughter
+Dervish blade
+Diet poro-snax
+Doran's blade
+Doran's ring
+Doran's shield
+Duskblade of draktharr
+Edge of night
+Elixir of iron
+Elixir of sorcery
+Elixir of wrath
+Entropy field
+Espresso snax
+Essence reaver
+Executioner's calling
+Explorer's ward
+Eye of the equinox
+Eye of the herald
+Eye of the oasis
+Eye of the watchers
+Face of the mountain
+Faerie charm
+Farsight alteration
+Fiendish codex
+Fire at will
+Flash zone
+Forbidden idol
+Forgefire cape
+Frost queen's claim
+Frosted snax
+Frostfang
+Frozen heart
+Frozen mallet
+Gargoyle stoneplate
+Giant slayer
+Giant's belt
+Glacial shroud
+Golden transcendence
+Gravity boots
+Greater stealth totem
+Greater vision totem
+Guardian angel
+Guardian's hammer
+Guardian's horn
+Guardian's orb
+Guinsoo's rageblade
+Haunting guise
+Health potion
+Hexdrinker
+Hextech glp-800
+Hextech gunblade
+Hextech protobelt-01
+Hextech revolver
+Hunter's machete
+Hunter's potion
+Hunter's talisman
+Iceborn gauntlet
+Infernal mask
+Infinity edge
+Ionian boots of lucidity
+Jaurim's fist
+Kindlegem
+Kircheis shard
+Knight's vow
+Last whisper
+Liandry's torment
+Lich bane
+Locket of the iron solari
+Long sword
+Lord dominik's regards
+Lord van damm's pillager
+Lost chapter
+Luden's echo
+Manamune
+Maw of malmortius
+Mejai's soulstealer
+Mercurial scimitar
+Mercury's treads
+Mikael's crucible
+Molten edge
+Moonflair spellblade
+Morellonomicon
+Mortal reminder
+Muramana
+Nashor's tooth
+Needlessly large rod
+Negatron cloak
+Nexus siege: siege weapon slot
+Ninja tabi
+Nomad's medallion
+Null-magic mantle
+Ohmwrecker
+Oracle alteration
+Oracle's extract
+Overlord's bloodmail
+Perfect hex core
+Phage
+Phantom dancer
+Pickaxe
+Poacher's dirk
+Poro-snax
+Port pad
+Prototype hex core
+Quicksilver sash
+Rabadon's deathcap
+Rabadon's deathcrown
+Rainbow snax party pack!
+Raise morale
+Randuin's omen
+Rapid firecannon
+Raptor cloak
+Ravenous hydra
+Recurve bow
+Redemption
+Refillable potion
+Rejuvenation bead
+Relic shield
+Righteous glory
+Rod of ages
+Ruby crystal
+Ruby sightstone
+Runaan's hurricane
+Rylai's crystal scepter
+Salvation
+Sanguine blade
+Sapphire crystal
+Seeker's armguard
+Seer stone (trinket)
+Seraph's embrace
+Serrated dirk
+Sheen
+Shield totem
+Siege ballista
+Siege refund
+Siege sight warder
+Siege teleport
+Sightstone
+Singularity lantern
+Skirmisher's sabre
+Slightly magical boots
+Sorcerer's shoes
+Soul anchor
+Spectre's cowl
+Spellthief's edge
+Spirit visage
+Stalker's blade
+Statikk shiv
+Sterak's gage
+Stinger
+Stopwatch
+Sunfire cape
+Super spicy snax
+Sweeping lens
+Talisman of ascension
+Targon's brace
+Tear of the goddess
+The black cleaver
+The black spear
+The bloodthirster
+The dark seal
+The hex core mk-1
+The hex core mk-2
+The lightbringer
+The obsidian cleaver
+Thornmail
+Tiamat
+Titanic hydra
+Total biscuit of rejuvenation
+Tower: beam of ruination
+Tower: storm bulwark
+Tracker's knife
+Trinity force
+Trinity fusion
+Vampiric scepter
+Vanguard banner
+Void staff
+Warden's mail
+Warding totem
+Warmog's armor
+Wicked hatchet
+Wit's end
+Wooglet's witchcap
+Wooglet's witchcrown
+Youmuu's ghostblade
+Zeal
+Zeke's convergence
+Zhonya's hourglass
+Zhonya's paradox
+Zz'rot portal
+Ghost
+Heal
+Clarity
+To the king!
+Poro toss
+Mark
+Cleanse
+Teleport
+Smite
+Barrier
+Ignite
+Exhaust
+Flash
