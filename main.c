@@ -167,7 +167,7 @@ void message_categoriser(chat_entry *logs, int total_entries_log){
   int input_category;
 
   printf("Please enter corresponding number to a category to display messages within a category\n");
-  printf("Enter 1 for question\nEnter 2 for messages related to game terms\nEnter 3 for...");
+  printf("Enter 1 for question\nEnter 2 for messages related to game terms\nEnter 3 for...\n");
   scanf(" %d", &input_category);
   
   if(input_category == 1){
