@@ -4,6 +4,7 @@
 #include <signal.h>
 
 #define MAX_SIZE 50
+#define MAX_SIZE_WITH_POINTS (MAX_SIZE + 5)
 #define MAX_SIZE_MESSAGE 300
 
 typedef struct chat_entry{
@@ -18,6 +19,10 @@ typedef struct wordlist{
   char word[MAX_SIZE];
 } wordlist;
 
+typedef struct wordlist_copy{
+  char word[MAX_SIZE_WITH_POINTS];
+}wordlist_copy;
+
 int countAllEntries(FILE*);
 void read_data_log(FILE*, int, chat_entry logs[]);
 void read_wordlist(FILE*, int, wordlist words[]);
@@ -26,6 +31,7 @@ void assign_points(int, int, chat_entry logs[], wordlist words[]);
 void print_over_threshold(int, chat_entry logs[], int);
 int compare_points (const void * a, const void * b);
 void file_addition(FILE *word_list/*, int total_entries_wordlist*/);
+void file_subtraction(FILE *original);
 
 int main(void){
 
@@ -44,6 +50,7 @@ int main(void){
     
     check_for_question(total_entries_log, logs, total_entries_wordlist, words);
     file_addition(user_wordlist);
+    file_subtraction(user_wordlist);
 
 /*
     printf("\nEnter amount of points to show messages equal to or exceeding that value: ");
@@ -173,6 +180,34 @@ void file_addition(FILE *word_list){
   fputs(final_word, word_list);
 }
 
-void file_subtraction(){
+/*Copy all lines except the one to be deleted in to a new file, rename new file to old file.*/
+void file_subtraction(FILE *original){
+  int line_count = 0, flag = 0, i;
+  char delete_word[MAX_SIZE], word_storage[MAX_SIZE_WITH_POINTS];
+  wordlist_copy temp;
+  FILE *new;
+  new = fopen("new_wordlist.txt", "w");
 
+  printf("Which word do you want to delete?: \n");
+  scanf("%s", delete_word);
+
+  do{
+    fgets(word_storage, MAX_SIZE_WITH_POINTS, original);
+    if(strcmp(word_storage, delete_word) == 0){
+      flag = 1;
+    }
+    else{
+      strcpy(temp[line_count].word, word_storage);
+      ++line_count;
+    }
+  }while(flag != 1 || feof(original) == 0);
+
+  for(i = 0; i < line_count; ++i){
+    fprintf(new, "%s", temp[i].word);
+  }
+
+  fclose(original);
+  fclose(new);
+  remove(original);
+  rename(new, original);
 }
