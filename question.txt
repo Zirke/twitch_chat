@@ -16,7 +16,17 @@ which
 who
 how
 where
-<<<<<<< HEAD
+whose
+whom
+WHAT
+WHEN
+WHY
+WHICH
+WHO
+HOW
+WHERE
+WHOSE
+WHOM
 [GAMETERM]
 aatrox
 ahri
@@ -402,16 +412,3 @@ barrier
 ignite
 exhaust
 flash
-=======
-whose
-whom
-WHAT
-WHEN
-WHY
-WHICH
-WHO
-HOW
-WHERE
-WHOSE
-WHOM
->>>>>>> 3a290ef8bcb4dccd34d4a7882f3a97b13cf7be81
