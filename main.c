@@ -32,8 +32,7 @@ void print_over_threshold(int, chat_entry logs[], int);
 int compare_points (const void * a, const void * b);
 void message_categoriser(chat_entry *logs);
 void read_category_database(FILE fp, int question_total_entry, wordlist questions[]);
-void message_category_saver(wordlist questions[], chat_entry messages[], 
-  int question_total_entry, chat_entry *logs, int* total_message);
+void message_category_saver(wordlist questions[], chat_entry messages[], int question_total_entry, chat_entry logs[], int* total_message);
 
 int main(void){
 
@@ -162,7 +161,7 @@ int compare_points (const void * a, const void * b){
     }
 }
 
-void message_categoriser(chat_entry *logs){
+void message_categoriser(chat_entry *logs, int total_entries_log){
   
   FILE *fp;
   fp = fopen("question.txt", "r");
@@ -175,7 +174,7 @@ void message_categoriser(chat_entry *logs){
   
   
   read_category_database(*fp, question_total_entry, questions);
-  message_category_saver(questions, messages, question_total_entry, logs, &total_message);
+  message_category_saver(questions, messages, question_total_entry, logs, &total_message, &total_entries_log);
   
   for(int i = 0; i < total_message; i++){
     printf("[%s] %s: %s\n",messages[i].timestamp, messages[i].username, messages[i].message);
@@ -194,11 +193,11 @@ void read_category_database(FILE fp, int question_total_entry, wordlist question
 }
 
 void message_category_saver(wordlist questions[], chat_entry messages[], 
-  int question_total_entry, chat_entry *logs, int* total_message){
+  int question_total_entry, chat_entry logs[], int* total_message, int total_entries_log){
   
   int i, j, k=0;
-  //Der er noget galt i if'en
-  for(i = 0; i < question_total_entry; ++i){
+  //ret det med total_entries_log
+  for(i = 0; i < total_entries_log; ++i){
     for (j = 0; j < question_total_entry; ++j){
       //der er noget galt med logs[i].message
       if(strstr(logs[i].message, questions[j].word) != NULL){
