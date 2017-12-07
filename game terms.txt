@@ -1,0 +1,384 @@
+Aatrox
+Ahri
+Akali
+Alistar
+Amumu
+Anivia
+Annie
+Ashe
+Aurelion Sol
+Azir
+Bard
+Blitzcrank
+Brand
+Braum
+Caitlyn
+Camille
+Cassiopeia
+Cho'Gath
+Corki
+Darius
+Diana
+Dr. Mundo
+Draven
+Ekko
+Elise
+Evelynn
+Ezreal
+Fiddlesticks
+Fiora
+Fizz
+Galio
+Gangplank
+Garen
+Gnar
+Gragas
+Graves
+Hecarim
+Heimerdinger
+Illaoi
+Irelia
+Ivern
+Jann
+Jarvan IV
+Jax
+Jayce
+Jhin
+Jinx
+Kalista
+Karma
+Karthus
+Kassadin
+Katarina
+Kayle
+Kayn
+Kennen
+Kha'Zix
+Kindred
+Kled
+Kog'Maw
+LeBlanc
+Lee Sin
+Leona
+Lissandra
+Lucian
+Lulu
+Lux
+Malphite
+Malzahar
+Maokai
+Master Yi
+Miss Fortune
+Mordekaiser
+Morgana
+Nami
+Nasus
+Nautilus
+Nidalee
+Nocturne
+Nunu
+Olaf
+Orianna
+Ornn
+Pantheon
+Poppy
+Quinn
+Rakan
+Rammus
+Rek'Sai
+Renekton
+Rengar
+Riven
+Rumble
+Ryze
+Sejuani
+Shaco
+Shen
+Shyvana
+Singed
+Sion
+Sivir
+Skarner
+Sona
+Soraka
+Swain
+Syndra
+Tahm Kench
+Taliyah
+Talon
+Taric
+Teemo
+Thresh
+Tristana
+Trundle
+Tryndamere
+Twisted Fate
+Twitch
+Udyr
+Urgot
+Varus
+Vayne
+Veigar
+Vel'Koz
+Vi
+Viktor
+Vladimir
+Volibear
+Warwick
+Wukong
+Xayah
+Xerath
+Xin Zhao
+Yasuo
+Yorick
+Zac
+Zed
+Ziggs
+Zilean
+Zoe
+Zyra
+Abyssal Mask
+Adaptive Helm
+Aegis of the Legion
+Aether Wisp
+Amplifying Tome
+Ancient Coin
+Arcane Sweeper
+Arcane Sweeper
+Archangel's Staff
+Ardent Censer
+Athene's Unholy Grail
+B. F. Sword
+Bami's Cinder
+Banner of Command
+Banshee's Veil
+Berserker's Greaves
+Bilgewater Cutlass
+Blade of the Ruined King
+Blasting Wand
+Boots of Mobility
+Boots of Speed
+Boots of Swiftness
+Bramble Vest
+Brawler's Gloves
+Catalyst of Aeons
+Caulfield's Warhammer
+Chain Vest
+Chalice of Harmony
+Circlet of the Iron Solari
+Cloak of Agility
+Cloak of Stars
+Cloth Armor
+Commencing Stopwatch
+Control Ward
+Corrupting Potion
+Cosmic Shackle
+Crystalline Bracer
+Cull
+Dagger
+Dark Matter Scythe
+Dark Star Sigil
+Dead Man's Plate
+Death's Dance
+Death's Daughter
+Dervish Blade
+Diet Poro-Snax
+Doran's Blade
+Doran's Ring
+Doran's Shield
+Duskblade of Draktharr
+Edge of Night
+Elixir of Iron
+Elixir of Sorcery
+Elixir of Wrath
+Entropy Field
+Espresso Snax
+Essence Reaver
+Executioner's Calling
+Explorer's Ward
+Eye of the Equinox
+Eye of the Herald
+Eye of the Oasis
+Eye of the Watchers
+Face of the Mountain
+Faerie Charm
+Farsight Alteration
+Fiendish Codex
+Fire at Will
+Flash Zone
+Forbidden Idol
+Forgefire Cape
+Frost Queen's Claim
+Frosted Snax
+Frostfang
+Frozen Heart
+Frozen Mallet
+Gargoyle Stoneplate
+Giant Slayer
+Giant's Belt
+Glacial Shroud
+Golden Transcendence
+Gravity Boots
+Greater Stealth Totem
+Greater Vision Totem
+Guardian Angel
+Guardian's Hammer
+Guardian's Horn
+Guardian's Orb
+Guinsoo's Rageblade
+Haunting Guise
+Health Potion
+Hexdrinker
+Hextech GLP-800
+Hextech Gunblade
+Hextech Protobelt-01
+Hextech Revolver
+Hunter's Machete
+Hunter's Potion
+Hunter's Talisman
+Iceborn Gauntlet
+Infernal Mask
+Infinity Edge
+Ionian Boots of Lucidity
+Jaurim's Fist
+Kindlegem
+Kircheis Shard
+Knight's Vow
+Last Whisper
+Liandry's Torment
+Lich Bane
+Locket of the Iron Solari
+Long Sword
+Lord Dominik's Regards
+Lord Van Damm's Pillager
+Lost Chapter
+Luden's Echo
+Manamune
+Maw of Malmortius
+Mejai's Soulstealer
+Mercurial Scimitar
+Mercury's Treads
+Mikael's Crucible
+Molten Edge
+Moonflair Spellblade
+Morellonomicon
+Mortal Reminder
+Muramana
+Nashor's Tooth
+Needlessly Large Rod
+Negatron Cloak
+Nexus Siege: Siege Weapon Slot
+Ninja Tabi
+Nomad's Medallion
+Null-Magic Mantle
+Ohmwrecker
+Oracle Alteration
+Oracle's Extract
+Overlord's Bloodmail
+Perfect Hex Core
+Phage
+Phantom Dancer
+Pickaxe
+Poacher's Dirk
+Poro-Snax
+Port Pad
+Prototype Hex Core
+Quicksilver Sash
+Rabadon's Deathcap
+Rabadon's Deathcrown
+Rainbow Snax Party Pack!
+Raise Morale
+Randuin's Omen
+Rapid Firecannon
+Raptor Cloak
+Ravenous Hydra
+Recurve Bow
+Redemption
+Refillable Potion
+Rejuvenation Bead
+Relic Shield
+Righteous Glory
+Rod of Ages
+Ruby Crystal
+Ruby Sightstone
+Runaan's Hurricane
+Rylai's Crystal Scepter
+Salvation
+Sanguine Blade
+Sapphire Crystal
+Seeker's Armguard
+Seer Stone (Trinket)
+Seraph's Embrace
+Serrated Dirk
+Sheen
+Shield Totem
+Siege Ballista
+Siege Refund
+Siege Sight Warder
+Siege Teleport
+Sightstone
+Singularity Lantern
+Skirmisher's Sabre
+Slightly Magical Boots
+Sorcerer's Shoes
+Soul Anchor
+Spectre's Cowl
+Spellthief's Edge
+Spirit Visage
+Stalker's Blade
+Statikk Shiv
+Sterak's Gage
+Stinger
+Stopwatch
+Sunfire Cape
+Super Spicy Snax
+Sweeping Lens
+Talisman of Ascension
+Targon's Brace
+Tear of the Goddess
+The Black Cleaver
+The Black Spear
+The Bloodthirster
+The Dark Seal
+The Hex Core mk-1
+The Hex Core mk-2
+The Lightbringer
+The Obsidian Cleaver
+Thornmail
+Tiamat
+Titanic Hydra
+Total Biscuit of Rejuvenation
+Tower: Beam of Ruination
+Tower: Storm Bulwark
+Tracker's Knife
+Trinity Force
+Trinity Fusion
+Vampiric Scepter
+Vanguard Banner
+Void Staff
+Warden's Mail
+Warding Totem
+Warmog's Armor
+Wicked Hatchet
+Wit's End
+Wooglet's Witchcap
+Wooglet's Witchcrown
+Youmuu's Ghostblade
+Zeal
+Zeke's Convergence
+Zhonya's Hourglass
+Zhonya's Paradox
+Zz'Rot Portal
+ghost
+heal
+clarity
+to the king!
+poro Toss
+mark
+cleanse
+teleport
+smite
+Barrier
+ignite
+exhaust
+flash
