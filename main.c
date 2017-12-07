@@ -43,7 +43,7 @@ void user_navigation(int, chatlog logs[], int, wordlist words[], time logs_hms[]
 void time_in_stream(int, chatlog logs[], time logs_hms[], int);
 /* Calc functions */
 void timestamp_to_seconds(int total_entries_log, chatlog logs[], time logs_hms[]);
-/* qsort compare functions */
+/* Qsort compare functions */
 int compare_points (const void * a, const void * b);
 
 int main(void){
