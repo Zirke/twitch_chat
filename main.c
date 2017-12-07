@@ -25,12 +25,13 @@ void check_for_question(int, chat_entry logs[], int, wordlist words[]);
 void assign_points(int, int, chat_entry logs[], wordlist words[]);
 void print_over_threshold(int, chat_entry logs[], int);
 int compare_points (const void * a, const void * b);
+void file_addition(FILE *word_list/*, int total_entries_wordlist*/);
 
 int main(void){
 
     FILE *chat_log, *user_wordlist;
     chat_log = fopen("twitchlogs.txt", "r");
-    user_wordlist = fopen("wordlist.txt", "r");
+    user_wordlist = fopen("wordlist.txt", "r+");
     int total_entries_wordlist = countAllEntries(user_wordlist);
     int total_entries_log = countAllEntries(chat_log);
     int user_threshold = 0;
@@ -42,11 +43,13 @@ int main(void){
     assign_points(total_entries_log, total_entries_wordlist, logs, words);
     
     check_for_question(total_entries_log, logs, total_entries_wordlist, words);
+    file_addition(user_wordlist);
 
+/*
     printf("\nEnter amount of points to show messages equal to or exceeding that value: ");
     scanf("%d",&user_threshold);
     print_over_threshold(total_entries_log,logs,user_threshold);
-
+*/
     fclose(user_wordlist);
     fclose(chat_log);
     free(words);
@@ -150,4 +153,26 @@ int compare_points (const void * a, const void * b){
     else{ 
       return 0;
     }
+}
+
+void file_addition(FILE *word_list){
+  char user_input_word[MAX_SIZE],user_input_score[2], final_word[MAX_SIZE];
+  int i;
+
+  printf("Add a word to the database: \n");
+  scanf("%s", user_input_word);
+
+  printf("Set the score for the new word: \n");
+  scanf("%s", user_input_score);
+
+  strcpy(final_word, "\n");
+  strcat(final_word, user_input_word);
+  strcat(final_word, ", ");
+  strcat(final_word, user_input_score);
+
+  fputs(final_word, word_list);
+}
+
+void file_subtraction(){
+
 }
