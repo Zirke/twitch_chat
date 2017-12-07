@@ -168,6 +168,7 @@ void message_categoriser(chat_entry *logs){
   fp = fopen("question.txt", "r");
   int question_total_entry = countAllEntries(fp);
   int count = 0;
+ 
   wordlist *questions = malloc(sizeof(wordlist) * question_total_entry);
   chat_entry *messages = malloc(sizeof(chat_entry) * question_total_entry);
   int total_message = 0;
@@ -179,7 +180,7 @@ void message_categoriser(chat_entry *logs){
   for(int i = 0; i < total_message; i++){
     printf("[%s] %s: %s\n",messages[i].timestamp, messages[i].username, messages[i].message);
   }
-
+  printf("%d\n", question_total_entry);
   fclose(fp);
 }
 
@@ -196,12 +197,15 @@ void message_category_saver(wordlist questions[], chat_entry messages[],
   int question_total_entry, chat_entry *logs, int* total_message){
   
   int i, j, k=0;
+  //Der er noget galt i if'en
   for(i = 0; i < question_total_entry; ++i){
     for (j = 0; j < question_total_entry; ++j){
+      //der er noget galt med logs[i].message
       if(strstr(logs[i].message, questions[j].word) != NULL){
+        //printf("if\n");
         messages[k] = logs[i];
         k++; 
-        break;
+        //break;
       }
     }
   }
