@@ -17,3 +17,12 @@ how
 where
 whose
 whom
+WHAT
+WHEN
+WHY
+WHICH
+WHO
+HOW
+WHERE
+WHOSE
+WHOM
