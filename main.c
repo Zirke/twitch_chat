@@ -31,8 +31,8 @@ void assign_points(int, int, chat_entry logs[], wordlist words[]);
 void print_over_threshold(int, chat_entry logs[], int);
 int compare_points (const void * a, const void * b);
 void message_categoriser(chat_entry *logs, int total_entries_log);
-void read_category_file(FILE fp, int category_total_entry, wordlist questions[]);
-void message_saver(wordlist questions[], chat_entry messages[], int category_total_entry, chat_entry logs[], int* total_message, int total_entries_log);
+void read_category_file(FILE fp, int category_total_entry, wordlist category_messages[]);
+void message_saver(wordlist category_messages[], chat_entry messages[], int category_total_entry, chat_entry logs[], int* total_message, int total_entries_log);
 
 int main(void){
 
@@ -164,17 +164,32 @@ int compare_points (const void * a, const void * b){
 void message_categoriser(chat_entry *logs, int total_entries_log){
   
   FILE *fp;
-  fp = fopen("question.txt", "r");
+  int input_category;
+
+  printf("Please enter corresponding number to a category to display messages within a category\n");
+  printf("Enter 1 for question\nEnter 2 for messages related to game terms\nEnter 3 for...\n");
+  scanf(" %d", &input_category);
+  
+  if(input_category == 1){
+    fp = fopen("question.txt", "r");
+  }
+  else if(input_category == 2){
+    fp = fopen("gameterms.txt", "r"); //fil mangler at blive lavet
+  }
+  else if(input_category == 3){
+    //mangler en tredje kategori
+  }
+  
   int category_total_entry = countAllEntries(fp);
   int count = 0;
  
-  wordlist *questions = malloc(sizeof(wordlist) * category_total_entry);
+  wordlist *category_messages = malloc(sizeof(wordlist) * category_total_entry);
   chat_entry *messages = malloc(sizeof(chat_entry) * category_total_entry);
   int total_message = 0;
   
   
-  read_category_file(*fp, category_total_entry, questions);
-  message_saver(questions, messages, category_total_entry, logs, &total_message, total_entries_log);
+  read_category_file(*fp, category_total_entry, category_messages);
+  message_saver(category_messages, messages, category_total_entry, logs, &total_message, total_entries_log);
   
   for(int i = 0; i < total_message; i++){
     printf("[%s] %s: %s\n",messages[i].timestamp, messages[i].username, messages[i].message);
@@ -183,23 +198,24 @@ void message_categoriser(chat_entry *logs, int total_entries_log){
   fclose(fp);
 }
 
-void read_category_file(FILE fp, int category_total_entry, wordlist questions[]){
+
+void read_category_file(FILE fp, int category_total_entry, wordlist category_messages[]){
   int i;
   wordlist data = {0};
   
   for(i = 0; i < category_total_entry; ++i){
     fscanf(&fp," %[^\n]",data.word);
-    questions[i] = data;
+    category_messages[i] = data;
   } 
 }
 
-void message_saver(wordlist questions[], chat_entry messages[], 
+void message_saver(wordlist category_messages[], chat_entry messages[], 
   int category_total_entry, chat_entry logs[], int* total_message, int total_entries_log){
   int i, j, k=0;
   
   for(i = 0; i < total_entries_log; ++i){
     for (j = 0; j < category_total_entry; ++j){
-      if(strstr(logs[i].message, questions[j].word) != NULL){
+      if(strstr(logs[i].message, category_messages[j].word) != NULL){
         messages[k] = logs[i];
         k++; 
         break;
