@@ -33,6 +33,8 @@ int compare_points (const void * a, const void * b);
 void message_categoriser(chat_entry *logs, int total_entries_log);
 void read_category_file(FILE fp, int category_total_entry, wordlist category_messages[]);
 void message_saver(wordlist category_messages[], chat_entry messages[], int category_total_entry, chat_entry logs[], int* total_message, int total_entries_log);
+void category_start_position(int category_total_entry, wordlist category_messages[], int* question_begin, int* gameterm_begin);
+void database_maker(int start_position, int fin_position, wordlist database[], wordlist category_messages[]);
 
 int main(void){
 
@@ -164,27 +166,13 @@ int compare_points (const void * a, const void * b){
 void message_categoriser(chat_entry *logs, int total_entries_log){
   
   FILE *fp;
-  int input_category;
-
-  printf("Please enter corresponding number to a category to display messages within a category\n");
-  printf("Enter 1 for question\nEnter 2 for messages related to game terms\nEnter 3 for...\n");
-  scanf(" %d", &input_category);
-  
-  if(input_category == 1){
-    fp = fopen("question.txt", "r");
-  }
-  else if(input_category == 2){
-    fp = fopen("gameterms.txt", "r"); //fil mangler at blive lavet
-  }
-  else if(input_category == 3){
-    //mangler en tredje kategori
-  }
-  
+  fp = fopen("question.txt", "r");
   int category_total_entry = countAllEntries(fp);
   int count = 0;
  
   wordlist *category_messages = malloc(sizeof(wordlist) * category_total_entry);
   chat_entry *messages = malloc(sizeof(chat_entry) * category_total_entry);
+  
   int total_message = 0;
   
   
@@ -200,13 +188,45 @@ void message_categoriser(chat_entry *logs, int total_entries_log){
 
 
 void read_category_file(FILE fp, int category_total_entry, wordlist category_messages[]){
-  int i;
+  int i, question_begin, gameterm_begin, j=0;
   wordlist data = {0};
+  
   
   for(i = 0; i < category_total_entry; ++i){
     fscanf(&fp," %[^\n]",data.word);
     category_messages[i] = data;
-  } 
+  }
+  
+  category_start_position(category_total_entry, category_messages, &question_begin, &gameterm_begin);
+
+  
+  wordlist *questions = malloc(sizeof(wordlist) * gameterm_begin);
+  wordlist *gameterm = malloc(sizeof(wordlist) * (category_total_entry - gameterm_begin));
+  
+  database_maker(0, gameterm_begin, questions, category_messages);
+  database_maker(gameterm_begin, category_total_entry, gameterm, category_messages);
+  
+}
+
+void category_start_position(int category_total_entry, wordlist category_messages[], int* question_begin, int* gameterm_begin){
+  int i;
+
+  for(i = 0; i < category_total_entry; ++i){
+    if(strcmp(category_messages[i].word, "[QUESTION]") == 0){
+       (*question_begin) = i;
+    }
+    else if(strcmp(category_messages[i].word, "[GAMETERM]") == 0){
+       (*gameterm_begin) = i;
+    }
+  }
+}
+
+void database_maker(int start_position, int fin_position, wordlist database[], wordlist category_messages[]){
+ int i, j = 0;
+ for(i = start_position; i < fin_position; i++){
+   database[j] = category_messages[i];
+   j++;
+ } 
 }
 
 void message_saver(wordlist category_messages[], chat_entry messages[], 
