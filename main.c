@@ -52,11 +52,10 @@ int main(void){
     check_for_question(total_entries_log, logs, total_entries_wordlist, words);
     file_change_option(user_wordlist, total_entries_wordlist);
 
-/*
     printf("\nEnter amount of points to show messages equal to or exceeding that value: ");
     scanf("%d",&user_threshold);
     print_over_threshold(total_entries_log,logs,user_threshold);
-*/
+
     fclose(user_wordlist);
     fclose(chat_log);
     free(words);
