@@ -33,7 +33,7 @@ int compare_points (const void * a, const void * b);
 void message_categoriser(chat_entry *logs, int total_entries_log);
 void read_category_file(FILE fp, int category_total_entry, wordlist category_messages[]);
 void message_saver(wordlist category_messages[], chat_entry messages[], int category_total_entry, chat_entry logs[], int* total_message, int total_entries_log);
-void category_start_position(int category_total_entry, wordlist category_messages[], int* question_begin, int* gameterm_begin);
+void category_start_position(int category_total_entry, wordlist category_messages[], int *question_begin, int *gameterm_begin, int *emoji_begin);
 void database_maker(int start_position, int fin_position, wordlist database[], wordlist category_messages[], int* total_entries);
 
 int main(void){
@@ -168,20 +168,22 @@ void message_categoriser(chat_entry *logs, int total_entries_log){
   FILE *fp;
   fp = fopen("categories.txt", "r");
   int category_total_entry = countAllEntries(fp);
-  int question_begin, gameterm_begin, question_fin, gameterm_fin, total_message, user_input;
+  int question_begin, gameterm_begin, emoji_begin,question_fin, gameterm_fin, emoji_fin,total_message, user_input;
   wordlist *category_messages = malloc(sizeof(wordlist) * category_total_entry);
   chat_entry *messages = malloc(sizeof(chat_entry) * category_total_entry);
   
   read_category_file(*fp, category_total_entry, category_messages);
-  category_start_position(category_total_entry, category_messages, &question_begin, &gameterm_begin); 
+  category_start_position(category_total_entry, category_messages, &question_begin, &gameterm_begin, &emoji_begin); 
   wordlist *questions = malloc(sizeof(wordlist) * gameterm_begin);
-  wordlist *gameterm = malloc(sizeof(wordlist) * (category_total_entry - gameterm_begin));
+  wordlist *gameterm = malloc(sizeof(wordlist) * (emoji_begin));
+  wordlist *emoji = malloc(sizeof(wordlist) * (category_total_entry - emoji_begin));
   
   database_maker(0, gameterm_begin -1, questions, category_messages, &question_fin);
-  database_maker(gameterm_begin, category_total_entry, gameterm, category_messages, &gameterm_fin);
+  database_maker(gameterm_begin, emoji_begin, gameterm, category_messages, &gameterm_fin); //det skal nok være emoji_begin - 1
+  database_maker(emoji_begin, category_total_entry, emoji, category_messages, &emoji_fin);
 
   printf("Please enter the a number to print the corresponding messages within the category \n"); //lyder lidt ondsvagt, skal nok ændre til noget andet
-  printf("Enter 1) for questions\n Enter 2) for messages with gameterms \n Enter 3) for trejde kategor...\n");
+  printf("Enter 1) for questions\n Enter 2) for messages with gameterms \n Enter 3) for messages with Emoji\n");
   scanf(" %d", &user_input);
 
   if( user_input == 1){
@@ -190,6 +192,10 @@ void message_categoriser(chat_entry *logs, int total_entries_log){
   else if(user_input == 2){
     message_saver(gameterm, messages, gameterm_fin, logs, &total_message, total_entries_log);
   }
+  else if(user_input == 3){
+    message_saver(emoji, messages, emoji_fin, logs, &total_message, total_entries_log);
+  }
+  
 
   for(int i = 0; i < total_message; i++){
     printf("[%s] %s: %s\n",messages[i].timestamp, messages[i].username, messages[i].message);
@@ -198,20 +204,23 @@ void message_categoriser(chat_entry *logs, int total_entries_log){
   free(messages);
   free(questions);
   free(gameterm);
+  free(emoji);
   fclose(fp);
+  /* Mangler at tjekke om [CATEGORY] er med i databaserne*/
 }
-
+/* function reads all of the words from the file categories.txt into an array of structs (wordlist)*/
 void read_category_file(FILE fp, int category_total_entry, wordlist category_messages[]){
   int i, question_begin, gameterm_begin, j=0;
   wordlist data = {0};
 
   for(i = 0; i < category_total_entry; ++i){
-    fscanf(&fp," %[^\n]",data.word);
+    fscanf(&fp," %[^\n]",data.word);                     /* Scans untill newline an saves the word into "data.word"*/
     category_messages[i] = data;
   }
 }
 
-void category_start_position(int category_total_entry, wordlist category_messages[], int *question_begin, int *gameterm_begin){
+/* Function saves the position of the categories into the corresponding int pointer*/
+void category_start_position(int category_total_entry, wordlist category_messages[], int *question_begin, int *gameterm_begin, int *emoji_begin){
   int i;
 
   for(i = 0; i < category_total_entry; ++i){
@@ -221,25 +230,31 @@ void category_start_position(int category_total_entry, wordlist category_message
     else if(strcmp(category_messages[i].word, "[GAMETERM]") == 0){
        (*gameterm_begin) = i +1;
     }
+    else if(strcmp(category_messages[i].word, "[EMOJI]") == 0){
+      (*emoji_begin) = i +1;
+    }
   }
 }
 
+/* Function initializes an array of structs with words corresponding a category*/
 void database_maker(int start_position, int fin_position, wordlist database[], wordlist category_messages[], int* total_entries){
   int i, j = 0;
-  for(i = start_position; i < fin_position; i++){
+  for(i = start_position; i < fin_position; i++){  /* the for-loop runs from the startposition of the particular category till the finish position. */
     database[j] = category_messages[i];
     j++;
   } 
-  (*total_entries) = j;
+  (*total_entries) = j; /* Assigns the amount of entries to the int pointer "*total_enties"*/
 }
 
+/* Function assigns/saves the messages from a particular category in the array of structs "messages" (chat_entry)*/
 void message_saver(wordlist category_messages[], chat_entry messages[], 
   int category_total_entry, chat_entry logs[], int* total_message, int total_entries_log){
   
   int i, j, k=0;
   
-  for(i = 0; i < total_entries_log; ++i){
-    for (j = 0; j < category_total_entry; ++j){
+  for(i = 0; i < total_entries_log; ++i){          /* The for-loop runs through every chat messages */
+    for (j = 0; j < category_total_entry; ++j){    /* the for-loop runs through a category database */
+      /* If a part of the message string from the chat log is the same as the database then log[i] is assignes to messages[k]*/
       if(strstr(logs[i].message, category_messages[j].word) != NULL){
         messages[k] = logs[i];
         k++; 
@@ -247,6 +262,6 @@ void message_saver(wordlist category_messages[], chat_entry messages[],
       }
     }
   }
-  (*total_message) = k;
+  (*total_message) = k;  /* the total amount of entries in the array of struct */
 
 }
