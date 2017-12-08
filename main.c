@@ -30,8 +30,9 @@ void check_for_question(int, chat_entry logs[], int, wordlist words[]);
 void assign_points(int, int, chat_entry logs[], wordlist words[]);
 void print_over_threshold(int, chat_entry logs[], int);
 int compare_points (const void * a, const void * b);
+void file_change_option(FILE *word_list, int total_entries_wordlist);
 void file_addition(FILE *word_list/*, int total_entries_wordlist*/);
-void file_subtraction(FILE *original);
+void file_subtraction(FILE *original, int);
 
 int main(void){
 
@@ -49,8 +50,7 @@ int main(void){
     assign_points(total_entries_log, total_entries_wordlist, logs, words);
     
     check_for_question(total_entries_log, logs, total_entries_wordlist, words);
-    file_addition(user_wordlist);
-    file_subtraction(user_wordlist);
+    file_change_option(user_wordlist, total_entries_wordlist);
 
 /*
     printf("\nEnter amount of points to show messages equal to or exceeding that value: ");
@@ -162,8 +162,24 @@ int compare_points (const void * a, const void * b){
     }
 }
 
+void file_change_option(FILE *word_list, int total_entries_wordlist){
+  char user_input[10];
+  do{
+  printf("Do you want to add or remove a word from the database?\n");
+  scanf("%s", user_input);
+  }while(strcmp(user_input, "add") != 0 && 
+         strcmp(user_input, "remove") != 0);
+
+  if(strcmp(user_input, "add") == 0){
+    file_addition(word_list);
+  }
+  else if(strcmp(user_input, "remove") == 0){
+    file_subtraction(word_list, total_entries_wordlist);
+  }
+}
+
 void file_addition(FILE *word_list){
-  char user_input_word[MAX_SIZE],user_input_score[2], final_word[MAX_SIZE];
+  char user_input_word[MAX_SIZE],user_input_score[10], final_word[MAX_SIZE_WITH_POINTS];
   int i;
 
   printf("Add a word to the database: \n");
@@ -181,33 +197,37 @@ void file_addition(FILE *word_list){
 }
 
 /*Copy all lines except the one to be deleted in to a new file, rename new file to old file.*/
-void file_subtraction(FILE *original){
+void file_subtraction(FILE *original, int total_entries_wordlist){
   int line_count = 0, flag = 0, i;
-  char delete_word[MAX_SIZE], word_storage[MAX_SIZE_WITH_POINTS];
-  wordlist_copy temp;
+  char delete_word[MAX_SIZE], word_storage_nopoints[MAX_SIZE], word_storage[MAX_SIZE_WITH_POINTS];
+  wordlist_copy temp[total_entries_wordlist];
   FILE *new;
   new = fopen("new_wordlist.txt", "w");
 
   printf("Which word do you want to delete?: \n");
   scanf("%s", delete_word);
+printf("Attempting dowhile statement...\n");
 
+fseek(original, 0, SEEK_SET);
   do{
     fgets(word_storage, MAX_SIZE_WITH_POINTS, original);
-    if(strcmp(word_storage, delete_word) == 0){
-      flag = 1;
-    }
-    else{
+    sscanf(word_storage, "%[^,]", word_storage_nopoints);
+printf("fgets was successful\n%s\n", word_storage);
+
+    if(strcmp(word_storage_nopoints, delete_word) != 0){
       strcpy(temp[line_count].word, word_storage);
+printf("strcpy successful\n%s\n", temp[line_count].word);
       ++line_count;
     }
-  }while(flag != 1 || feof(original) == 0);
 
+  }while(feof(original) == 0);
+printf("Dowhile statement succes!\nAttempting for loop...\n");
   for(i = 0; i < line_count; ++i){
     fprintf(new, "%s", temp[i].word);
   }
-
+printf("closing the files.\n");
   fclose(original);
   fclose(new);
-  remove(original);
-  rename(new, original);
+  remove("wordlist.txt");
+  rename("new_wordlist.txt", "wordlist.txt");
 }
