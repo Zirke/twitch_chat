@@ -163,8 +163,8 @@ int compare_points (const void * a, const void * b){
     }
 }
 
+
 void message_categoriser(chat_entry *logs, int total_entries_log){
-  
   FILE *fp;
   fp = fopen("categories.txt", "r");
   int category_total_entry = countAllEntries(fp);
@@ -177,9 +177,8 @@ void message_categoriser(chat_entry *logs, int total_entries_log){
   wordlist *questions = malloc(sizeof(wordlist) * gameterm_begin);
   wordlist *gameterm = malloc(sizeof(wordlist) * (category_total_entry - gameterm_begin));
   
-  
-  database_maker(gameterm_begin, category_total_entry, gameterm, category_messages, &gameterm_fin);
   database_maker(0, gameterm_begin -1, questions, category_messages, &question_fin);
+  database_maker(gameterm_begin, category_total_entry, gameterm, category_messages, &gameterm_fin);
 
   printf("Please enter the a number to print the corresponding messages within the category \n"); //lyder lidt ondsvagt, skal nok ændre til noget andet
   printf("Enter 1) for questions\n Enter 2) for messages with gameterms \n Enter 3) for trejde kategor...\n");
@@ -202,16 +201,14 @@ void message_categoriser(chat_entry *logs, int total_entries_log){
   fclose(fp);
 }
 
-
 void read_category_file(FILE fp, int category_total_entry, wordlist category_messages[]){
   int i, question_begin, gameterm_begin, j=0;
   wordlist data = {0};
-  
+
   for(i = 0; i < category_total_entry; ++i){
     fscanf(&fp," %[^\n]",data.word);
     category_messages[i] = data;
   }
-  
 }
 
 void category_start_position(int category_total_entry, wordlist category_messages[], int *question_begin, int *gameterm_begin){
@@ -228,12 +225,12 @@ void category_start_position(int category_total_entry, wordlist category_message
 }
 
 void database_maker(int start_position, int fin_position, wordlist database[], wordlist category_messages[], int* total_entries){
- int i, j = 0;
- for(i = start_position; i < fin_position; i++){
-   database[j] = category_messages[i];
-   j++;
- } 
- (*total_entries) = j;
+  int i, j = 0;
+  for(i = start_position; i < fin_position; i++){
+    database[j] = category_messages[i];
+    j++;
+  } 
+  (*total_entries) = j;
 }
 
 void message_saver(wordlist category_messages[], chat_entry messages[], 
