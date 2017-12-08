@@ -181,12 +181,14 @@ void file_addition(FILE *word_list){
   char user_input_word[MAX_SIZE],user_input_score[10], final_word[MAX_SIZE_WITH_POINTS];
   int i;
 
-  printf("Add a word to the database: \n");
+  printf("Add a word to the database: \n");/*The user specifies a word to be added.*/
   scanf("%s", user_input_word);
 
-  printf("Set the score for the new word: \n");
+  printf("Set the score for the new word: \n");/*Then the user specifies how highly that word is scored.*/
   scanf("%s", user_input_score);
 
+  /*The word and the score are then combined, following the standard structure
+    of the database. The combined string is then placed in the database file.*/
   strcpy(final_word, "\n");
   strcat(final_word, user_input_word);
   strcat(final_word, ", ");
@@ -195,7 +197,7 @@ void file_addition(FILE *word_list){
   fputs(final_word, word_list);
 }
 
-/*Copy all lines except the one to be deleted in to a new file, rename new file to old file.*/
+/*Copies all lines except the one to be deleted in to a new file, rename new file to old file.*/
 void file_subtraction(FILE *original, int total_entries_wordlist){
   int line_count = 0, flag = 0, i;
   char delete_word[MAX_SIZE], word_storage_nopoints[MAX_SIZE], word_storage[MAX_SIZE_WITH_POINTS];
@@ -203,30 +205,35 @@ void file_subtraction(FILE *original, int total_entries_wordlist){
   FILE *new;
   new = fopen("new_wordlist.txt", "w");
 
-  printf("Which word do you want to delete?: \n");
+  printf("Which word do you want to delete?: \n");/*User specifies a word to be deleted.*/
   scanf("%s", delete_word);
-printf("Attempting dowhile statement...\n");
 
-fseek(original, 0, SEEK_SET);
+fseek(original, 0, SEEK_SET);/*Ensures the file is read from the beginning to avoid issues.*/
+
+  /*Finds and stores which entries should be kept in the database.*/
   do{
-    fgets(word_storage, MAX_SIZE_WITH_POINTS, original);
-    sscanf(word_storage, "%[^,]", word_storage_nopoints);
-printf("fgets was successful\n%s\n", word_storage);
+    fgets(word_storage, MAX_SIZE_WITH_POINTS, original);/*Fetches a line of data.*/
+    sscanf(word_storage, "%[^,]", word_storage_nopoints);/*Then stores it for analytical purposes.*/
 
+  /*Checks whether or not an entry should be kept. Stores it if it should.*/
     if(strcmp(word_storage_nopoints, delete_word) != 0){
       strcpy(temp[line_count].word, word_storage);
-printf("strcpy successful\n%s\n", temp[line_count].word);
       ++line_count;
     }
 
-  }while(feof(original) == 0);
-printf("Dowhile statement succes!\nAttempting for loop...\n");
+  }while(feof(original) == 0);/*Repeats the code above until there are no more entries.*/
+
+  /*All lines that are not to be deleted are stored in a new file.*/
   for(i = 0; i < line_count; ++i){
     fprintf(new, "%s", temp[i].word);
   }
-printf("closing the files.\n");
+
+  /*Deletes the current database and renames the new one so that it can 
+    be used in place of the old one. This effectively deletes the unwanted
+    entry, as it will not be moved over to the new database.*/
   fclose(original);
   fclose(new);
   remove("wordlist.txt");
   rename("new_wordlist.txt", "wordlist.txt");
+  printf("Done.\n");
 }
