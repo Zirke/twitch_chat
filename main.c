@@ -38,6 +38,7 @@ void read_category_file(FILE fp, int category_total_entry, wordlist category_mes
 void message_saver(wordlist category_messages[], chatlog messages[], int category_total_entry, chatlog logs[], int* total_message, int total_entries_log);
 void category_start_position(int category_total_entry, wordlist category_messages[], int *question_begin, int *gameterm_begin, int *emoji_begin);
 void database_maker(int start_position, int fin_position, wordlist database[], wordlist category_messages[], int* total_entries);
+void print_category(chatlog messages, int total_message);
 
 int main(void){
 
@@ -199,10 +200,9 @@ void message_categoriser(chatlog *logs, int total_entries_log){
     message_saver(emoji, messages, emoji_fin, logs, &total_message, total_entries_log);
   }
   
+  print_category(messages, total_message);
 
-  for(int i = 0; i < total_message; i++){
-    printf("[%s] %s: %s\n",messages[i].timestamp, messages[i].username, messages[i].message);
-  }
+
 
   free(messages);
   free(questions);
@@ -266,5 +266,14 @@ void message_saver(wordlist category_messages[], chatlog messages[],
     }
   }
   (*total_message) = k;  /* the total amount of entries in the array of struct */
+
+}
+
+void print_category(chatlog messages, int total_message){
+  int i;
+  
+  for(i = 0; i < total_message; i++){
+    printf("[%s] %s: %s\n",messages[i].timestamp, messages[i].username, messages[i].message);
+  }
 
 }
