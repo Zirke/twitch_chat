@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <signal.h>
 
 #define MAX_SIZE 50
 #define MAX_SIZE_MESSAGE 300
@@ -38,11 +37,13 @@ int stream_start(int*);
 /*Filtration and Print functions*/
 void whitelist(int, chatlog logs[], int, wordlist words[], time logs_hms[], int, int);
 void assign_points(int, int, chatlog logs[], wordlist words[]);
-void print_over_threshold(int, chatlog logs[], int);
-void user_navigation(int, chatlog logs[], int, wordlist words[], time logs_hms[]);
+void print_over_threshold(int, chatlog logs[], int, time logs_hms[], int, int);
+void time_user_navigation(int, chatlog logs[], int, wordlist words[], time logs_hms[]);
 void time_in_stream(int, chatlog logs[], time logs_hms[], int);
 /* Calc functions */
 void timestamp_to_seconds(int total_entries_log, chatlog logs[], time logs_hms[]);
+/* Navigation Functions */
+void user_threshold_navigation(int, chatlog logs[], int, wordlist word[], time logs_hms[]);
 /* Qsort compare functions */
 int compare_points (const void * a, const void * b);
 
@@ -54,7 +55,7 @@ int main(void){
 
   int total_entries_wordlist = count_all_entries(user_wordlist);
   int total_entries_log = count_all_entries(chat_log);
-  int user_threshold = 0;
+  int user_threshold = 0, user_navigation = 0;
 
   wordlist *words = malloc(sizeof(wordlist) * total_entries_wordlist);
   chatlog *logs = malloc(sizeof(chatlog) * total_entries_log);
@@ -62,24 +63,29 @@ int main(void){
 
   read_wordlist(user_wordlist, total_entries_wordlist, words);
   read_data_log(chat_log, total_entries_log, logs);
+
+  assign_points(total_entries_log, total_entries_wordlist, logs, words);
+  
+  
+  scanf(" %d",&user_navigation);
+  switch(user_navigation){
+    case(1): time_user_navigation(total_entries_log, logs, total_entries_wordlist, words, logs_hms);
+    case(2): user_threshold_navigation(total_entries_log, logs, total_entries_wordlist, words, logs_hms);
+  }
+
+
+
+  
     
-  user_navigation(total_entries_log, logs, total_entries_wordlist, words, logs_hms);
-    
+  /*whitelist(total_entries_log, logs, total_entries_wordlist, words);
 
-
-
-  /*assign_points(total_entries_log, total_entries_wordlist, logs, words);
-    
-  whitelist(total_entries_log, logs, total_entries_wordlist, words);
-
-  printf("\nEnter amount of points to show messages equal to or exceeding that value: ");
-  scanf("%d",&user_threshold);
-  print_over_threshold(total_entries_log,logs,user_threshold);*/
+  */
 
   fclose(user_wordlist);
   fclose(chat_log);
   free(words);
   free(logs);
+  free(logs_hms);
     
     
   return 0;
@@ -138,18 +144,44 @@ void assign_points(int total_entries_log, int total_entries_wordlist, chatlog lo
   }
 }
 
-void print_over_threshold(int total_entries_log, chatlog logs[], int threshold){
+void print_over_threshold(int total_entries_log, chatlog logs[], int threshold, time logs_hms[], int input, int show_before){
 
+  printf("Enter");
   int i;
   chatlog *temp = malloc(sizeof(chatlog) * total_entries_log);
-  for (i = 0; i < total_entries_log; ++i){
-    temp[i] = logs[i];
+  time *temp_hms = malloc(sizeof(time) * total_entries_log);
+  if (input == 1){
+    for (i = 0; i < total_entries_log; ++i){
+      temp[i] = logs[i];
+    }
+    qsort(temp, total_entries_log, sizeof(chatlog), compare_points);
   }
-  qsort(temp, total_entries_log, sizeof(chatlog), compare_points);
-
+  else if (input == 2){
+    for (i = 0; i < total_entries_log; ++i){
+      temp_hms[i] = logs_hms[i];
+    }
+    qsort(temp_hms, total_entries_log, sizeof(time), compare_points);
+  }
+  
+  if (input == 1){
   for (i = 0; i < total_entries_log; ++i){
     if(temp[i].points >= threshold){
       printf("Points: %d |--| Timestamp: %s |--| Username: %-15s |--| Message: %s\n",temp[i].points, temp[i].timestamp, temp[i].username, temp[i].message);
+    }
+  }
+}
+  if (input == 2 && show_before == 0){
+    for (i = 0; i < total_entries_log; ++i){
+      if (temp_hms[i].points >= threshold && (temp_hms[i].hours >= 0 && temp_hms[i].minutes >= 0 && temp_hms[i].seconds >= 0)){
+        printf("Points: %d |--| Timestamp: %d:%d:%d |--| Username: %-15s |--| Message: %s\n",temp_hms[i].points, temp_hms[i].hours, temp_hms[i].minutes, temp_hms[i].seconds, temp_hms[i].username, temp_hms[i].message);
+      }
+    }
+  }
+  else if (input == 2 && show_before == 1){
+    for (i = 0; i < total_entries_log; ++i){
+      if (temp[i].points >= threshold){
+        printf("Points: %d |--| Timestamp: %d:%d:%d |--| Username: %-15s |--| Message: %s\n",temp_hms[i].points, temp_hms[i].hours, temp_hms[i].minutes, temp_hms[i].seconds, temp_hms[i].username, temp_hms[i].message);
+      }
     }
   }
 }
@@ -189,7 +221,7 @@ void whitelist(int total_entries_log, chatlog logs[], int total_entries_wordlist
   }
   else if(show_before != 1 && show_before != 0){
     printf("Incorrect input, please try again.\n\n");
-    user_navigation(total_entries_log, logs, total_entries_wordlist, words, logs_hms);
+    time_user_navigation(total_entries_log, logs, total_entries_wordlist, words, logs_hms);
   }
 }
 
@@ -210,7 +242,7 @@ int stream_start(int* show_before){
   return stream_start_seconds;
 }
 
-void user_navigation(int total_entries_log, chatlog logs[], int total_entries_wordlist, wordlist words[], time logs_hms[]){
+void time_user_navigation(int total_entries_log, chatlog logs[], int total_entries_wordlist, wordlist words[], time logs_hms[]){
 
   int user_stream_start = 0, user_navigation = 0;
   int show_before;
@@ -227,15 +259,38 @@ void user_navigation(int total_entries_log, chatlog logs[], int total_entries_wo
     case(2): {user_stream_start = stream_start(&show_before); time_in_stream(total_entries_log, logs, logs_hms, user_stream_start); 
               whitelist(total_entries_log, logs, total_entries_wordlist, words, logs_hms, user_navigation, show_before); break;}
     case(9): printf("Exiting.\n"); break;
-  }
-  
+  } 
 }
 
+/* Threshold navigation */
+void user_threshold_navigation(int total_entries_log, chatlog logs[], int total_entries_wordlist, wordlist word[], time logs_hms[]){
+
+  int user_threshold = 0, user_stream_start = 0, show_before, user_navigation = 0;
+  printf("\nEnter amount of points to show messages equal to or exceeding that value: ");
+  scanf("%d",&user_threshold);
+  printf("Choose a prefered method of timestamp display:\n\n");
+  printf("____________________________________\n");
+  printf("|1) Time of day.                   |\n");
+  printf("|2) Time according to stream start.|\n");
+  printf("|9) Exit.                          |\n");
+  printf("|----------------------------------|\n\n");
+  printf("Select an option by entering the number to the left of your choice.\nPress (9) to exit. > ");
+  scanf("%d",&user_navigation);
+  switch(user_navigation){
+    case(1): print_over_threshold(total_entries_log, logs, user_threshold, logs_hms, user_navigation, 0); break;
+    case(2): {user_stream_start = stream_start(&show_before); time_in_stream(total_entries_log, logs, logs_hms, user_stream_start); 
+              print_over_threshold(total_entries_log, logs, user_threshold, logs_hms, user_navigation, show_before); break;}
+    case(9): printf("Exiting.\n"); break;
+  }
+}
+
+/* Function to convert timestamps to time after stream */
 void time_in_stream(int total_entries_log, chatlog logs[], time logs_hms[], int user_input){
 
   int i, time = 0, temp = 0;
 
   for (i = 0; i < total_entries_log; ++i){
+    logs_hms[i].points = logs[i].points;
     memcpy(logs_hms[i].username, logs[i].username, strlen(logs[i].username)+1);
     memcpy(logs_hms[i].message, logs[i].message, strlen(logs[i].message)+1);
   }
