@@ -26,9 +26,9 @@ void check_for_question(int, chatlog logs[], int, wordlist words[]);
 void assign_points(int, int, chatlog logs[], wordlist words[]);
 void print_over_threshold(int, chatlog logs[], int);
 int compare_points (const void * a, const void * b);
-void message_categoriser(chatlog *logs, int total_entries_log);
+void main_message(chatlog *logs, int total_entries_log);
 void read_category_file(FILE fp, int category_total_entry, wordlist category_messages[]);
-void message_saver(wordlist category_messages[], chatlog messages[], int category_total_entry, chatlog logs[], int* total_message, int total_entries_log);
+void message_categoriser(wordlist category_messages[], chatlog messages[], int category_total_entry, chatlog logs[], int* total_message, int total_entries_log);
 void category_start_position(int category_total_entry, wordlist category_messages[], int *question_begin, int *gameterm_begin, int *emoji_begin);
 void database_maker(int start_position, int fin_position, wordlist database[], wordlist category_messages[], int* total_entries);
 void print_category(chatlog messages[], int total_message);
@@ -58,7 +58,7 @@ int main(void){
     fclose(chat_log);
     free(words);
     
-    message_categoriser(logs, total_entries_log);
+    main_message(logs, total_entries_log);
     
   return 0;
 }
@@ -162,8 +162,8 @@ int compare_points (const void * a, const void * b){
 
 
 /* HERFRA SKAL DER INDSÆTTES I MAIN FILEN*/
-
-void message_categoriser(chatlog *logs, int total_entries_log){
+/* function to categorisation of messages*/
+void main_message(chatlog *logs, int total_entries_log){
   FILE *fp;
   fp = fopen("categories.txt", "r");
   int category_total_entry = countAllEntries(fp);
@@ -186,18 +186,16 @@ void message_categoriser(chatlog *logs, int total_entries_log){
   scanf(" %d", &user_input);
 
   if( user_input == 1){
-    message_saver(questions, messages, question_fin, logs, &total_message, total_entries_log);
+    message_categoriser(questions, messages, question_fin, logs, &total_message, total_entries_log);
   }
   else if(user_input == 2){
-    message_saver(gameterm, messages, gameterm_fin, logs, &total_message, total_entries_log);
+    message_categoriser(gameterm, messages, gameterm_fin, logs, &total_message, total_entries_log);
   }
   else if(user_input == 3){
-    message_saver(emoji, messages, emoji_fin, logs, &total_message, total_entries_log);
+    message_categoriser(emoji, messages, emoji_fin, logs, &total_message, total_entries_log);
   }
   
   print_category(messages, total_message);
-
-
 
   free(messages);
   free(questions);
@@ -245,7 +243,7 @@ void database_maker(int start_position, int fin_position, wordlist database[], w
 }
 
 /* Function assigns/saves the messages from a particular category in the array of structs "messages" (chatlog)*/
-void message_saver(wordlist category_messages[], chatlog messages[], 
+void message_categoriser(wordlist category_messages[], chatlog messages[], 
   int category_total_entry, chatlog logs[], int* total_message, int total_entries_log){
   
   int i, j, k=0;
@@ -264,11 +262,11 @@ void message_saver(wordlist category_messages[], chatlog messages[],
 
 }
 
+/* function prints timestamp, username and message for each message part of the chosen category*/
 void print_category(chatlog messages[], int total_message){
   int i;
   
   for(i = 0; i < total_message; i++){
     printf("[%s] %s: %s\n",messages[i].timestamp, messages[i].username, messages[i].message);
   }
-
 }
