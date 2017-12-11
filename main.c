@@ -6,48 +6,51 @@
 #define MAX_SIZE 50
 #define MAX_SIZE_MESSAGE 300
 
-typedef struct chat_entry{
+typedef struct chatlog{
     int points;   /* Messages will be given points and only messages above x amount will be shown */
     char timestamp[MAX_SIZE];
     char username[MAX_SIZE];
     char message[MAX_SIZE_MESSAGE];
-} chat_entry;
+} chatlog;
 
 typedef struct wordlist{
   int points; /* In the wordlist, assign each word a point value */
   char word[MAX_SIZE];
 } wordlist;
 
+/* skal nok slettes*/
 typedef struct category{
   char name[MAX_SIZE]; 
   int place;
 } category;
 
 int countAllEntries(FILE*);
-void read_data_log(FILE*, int, chat_entry logs[]);
+void read_data_log(FILE*, int, chatlog logs[]);
 void read_wordlist(FILE*, int, wordlist words[]);
-void check_for_question(int, chat_entry logs[], int, wordlist words[]);
-void assign_points(int, int, chat_entry logs[], wordlist words[]);
-void print_over_threshold(int, chat_entry logs[], int);
+
+void check_for_question(int, chatlog logs[], int, wordlist words[]);
+void assign_points(int, int, chatlog logs[], wordlist words[]);
+void print_over_threshold(int, chatlog logs[], int);
 int compare_points (const void * a, const void * b);
-void message_categoriser(chat_entry *logs, int total_entries_log);
+
+void message_categoriser(chatlog *logs, int total_entries_log);
 void read_category_file(FILE fp, int category_total_entry, wordlist category_messages[]);
-void message_saver(wordlist category_messages[], chat_entry messages[], int category_total_entry, chat_entry logs[], int* total_message, int total_entries_log);
+void message_saver(wordlist category_messages[], chatlog messages[], int category_total_entry, chatlog logs[], int* total_message, int total_entries_log);
 void category_start_position(int category_total_entry, wordlist category_messages[], int *question_begin, int *gameterm_begin, int *emoji_begin);
 void database_maker(int start_position, int fin_position, wordlist database[], wordlist category_messages[], int* total_entries);
 
 int main(void){
 
-    FILE *chat_log, *user_wordlist;
-    chat_log = fopen("twitchlogs.txt", "r");
+    FILE *chatlog, *user_wordlist;
+    chatlog = fopen("twitchlogs.txt", "r");
     user_wordlist = fopen("wordlist.txt", "r");
     int total_entries_wordlist = countAllEntries(user_wordlist);
-    int total_entries_log = countAllEntries(chat_log);
+    int total_entries_log = countAllEntries(chatlog);
     int user_threshold = 0;
     wordlist *words = malloc(sizeof(wordlist) * total_entries_wordlist);
-    chat_entry *logs = malloc(sizeof(chat_entry) * total_entries_log);
+    chatlog *logs = malloc(sizeof(chatlog) * total_entries_log);
     read_wordlist(user_wordlist, total_entries_wordlist, words);
-    read_data_log(chat_log, total_entries_log, logs);
+    read_data_log(chatlog, total_entries_log, logs);
 
     assign_points(total_entries_log, total_entries_wordlist, logs, words);
     
@@ -58,7 +61,7 @@ int main(void){
     //print_over_threshold(total_entries_log,logs,user_threshold);
 
     fclose(user_wordlist);
-    fclose(chat_log);
+    fclose(chatlog);
     free(words);
     
     message_categoriser(logs, total_entries_log);
@@ -83,13 +86,13 @@ int countAllEntries(FILE *datafile){
 }
 
 /* Function for reading data from file to struct */
-void read_data_log(FILE *chat_log, int total_entries_log, chat_entry logs[]){
+void read_data_log(FILE *chatlog, int total_entries_log, chatlog logs[]){
 
   int i;
   char temp_timestamp[MAX_SIZE];
-  chat_entry data = {0};
+  chatlog data = {0};
   for(i = 0; i < total_entries_log; ++i){
-      fscanf(chat_log," [%[^][]] %[^:] %*[:] %[^\n]",
+      fscanf(chatlog," [%[^][]] %[^:] %*[:] %[^\n]",
                                       temp_timestamp,
                                       data.username,
                                       data.message);
@@ -108,7 +111,7 @@ void read_wordlist(FILE *user_wordlist, int total_entries_wordlist, wordlist wor
   }
 }
 
-void assign_points(int total_entries_log, int total_entries_wordlist, chat_entry logs[], wordlist words[]){
+void assign_points(int total_entries_log, int total_entries_wordlist, chatlog logs[], wordlist words[]){
 
   int i, j;
   for (i = 0; i < total_entries_log; ++i){
@@ -120,14 +123,14 @@ void assign_points(int total_entries_log, int total_entries_wordlist, chat_entry
   }
 }
 
-void print_over_threshold(int total_entries_log, chat_entry logs[], int threshold){
+void print_over_threshold(int total_entries_log, chatlog logs[], int threshold){
 
   int i;
-  chat_entry *temp = malloc(sizeof(chat_entry) * total_entries_log);
+  chatlog *temp = malloc(sizeof(chatlog) * total_entries_log);
   for (i = 0; i < total_entries_log; ++i){
     temp[i] = logs[i];
   }
-  qsort(temp, total_entries_log, sizeof(chat_entry), compare_points);
+  qsort(temp, total_entries_log, sizeof(chatlog), compare_points);
 
   for (i = 0; i < total_entries_log; ++i){
     if(temp[i].points >= threshold){
@@ -136,7 +139,7 @@ void print_over_threshold(int total_entries_log, chat_entry logs[], int threshol
   }
 }
 
-void check_for_question(int total_entries_log, chat_entry logs[], int total_entries_wordlist, wordlist words[]){
+void check_for_question(int total_entries_log, chatlog logs[], int total_entries_wordlist, wordlist words[]){
 
   int i, j;
   for(i = 0; i < total_entries_log; ++i){
@@ -150,8 +153,8 @@ void check_for_question(int total_entries_log, chat_entry logs[], int total_entr
 }
 
 int compare_points (const void * a, const void * b){
-    chat_entry *ia = (chat_entry *)a;
-    chat_entry *ib = (chat_entry *)b;
+    chatlog *ia = (chatlog *)a;
+    chatlog *ib = (chatlog *)b;
     if(ia->points > ib->points){
       return -1;
     }
@@ -164,13 +167,13 @@ int compare_points (const void * a, const void * b){
 }
 
 
-void message_categoriser(chat_entry *logs, int total_entries_log){
+void message_categoriser(chatlog *logs, int total_entries_log){
   FILE *fp;
   fp = fopen("categories.txt", "r");
   int category_total_entry = countAllEntries(fp);
   int question_begin, gameterm_begin, emoji_begin,question_fin, gameterm_fin, emoji_fin,total_message, user_input;
   wordlist *category_messages = malloc(sizeof(wordlist) * category_total_entry);
-  chat_entry *messages = malloc(sizeof(chat_entry) * category_total_entry);
+  chatlog *messages = malloc(sizeof(chatlog) * category_total_entry);
   
   read_category_file(*fp, category_total_entry, category_messages);
   category_start_position(category_total_entry, category_messages, &question_begin, &gameterm_begin, &emoji_begin); 
@@ -246,9 +249,9 @@ void database_maker(int start_position, int fin_position, wordlist database[], w
   (*total_entries) = j; /* Assigns the amount of entries to the int pointer "*total_enties"*/
 }
 
-/* Function assigns/saves the messages from a particular category in the array of structs "messages" (chat_entry)*/
-void message_saver(wordlist category_messages[], chat_entry messages[], 
-  int category_total_entry, chat_entry logs[], int* total_message, int total_entries_log){
+/* Function assigns/saves the messages from a particular category in the array of structs "messages" (chatlog)*/
+void message_saver(wordlist category_messages[], chatlog messages[], 
+  int category_total_entry, chatlog logs[], int* total_message, int total_entries_log){
   
   int i, j, k=0;
   
