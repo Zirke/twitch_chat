@@ -126,7 +126,7 @@ void read_data_log(FILE *user_log, int total_entries_log, chatlog logs[]){
 void read_wordlist(FILE *user_wordlist, int total_entries_wordlist, wordlist words[]){
 
   int i;
-  wordlist data = {0};
+  wordlist data;
   for (i = 0; i < total_entries_wordlist; ++i){
     fscanf(user_wordlist," %[^,] %*[,] %d",data.word, &data.points);
     words[i] = data;
@@ -151,9 +151,9 @@ void print_over_threshold(int total_entries_log, chatlog logs[], int threshold, 
   chatlog *temp = malloc(sizeof(chatlog) * total_entries_log);
   time *temp_hms = malloc(sizeof(time) * total_entries_log);
   if (input == 1){
-    for (i = 0; i < total_entries_log; ++i){
-      temp[i] = logs[i];
-    }
+    //for (i = 0; i < total_entries_log; ++i){
+      temp = logs;
+    //}
     qsort(temp, total_entries_log, sizeof(chatlog), compare_points);
   }
   else if (input == 2){
