@@ -50,12 +50,12 @@ int compare_points_hms (const void * a, const void * b);
 
 int main(void){
 
-  FILE *chat_log, *user_wordlist;
-  chat_log = fopen("twitchlogs.txt", "r");
+  FILE *user_log, *user_wordlist;
+  user_log = fopen("twitchlogs.txt", "r");
   user_wordlist = fopen("wordlist.txt", "r");
 
   int total_entries_wordlist = count_all_entries(user_wordlist);
-  int total_entries_log = count_all_entries(chat_log);
+  int total_entries_log = count_all_entries(user_log);
   int user_threshold = 0, user_navigation = 0;
 
   wordlist *words = malloc(sizeof(wordlist) * total_entries_wordlist);
@@ -63,7 +63,7 @@ int main(void){
   time *logs_hms = malloc(sizeof(time) * total_entries_log);
 
   read_wordlist(user_wordlist, total_entries_wordlist, words);
-  read_data_log(chat_log, total_entries_log, logs);
+  read_data_log(user_log, total_entries_log, logs);
 
   assign_points(total_entries_log, total_entries_wordlist, logs, words);
   
@@ -83,7 +83,7 @@ int main(void){
   */
 
   fclose(user_wordlist);
-  fclose(chat_log);
+  fclose(user_log);
   free(words);
   free(logs);
   free(logs_hms);
@@ -108,13 +108,13 @@ int count_all_entries(FILE *datafile){
 }
 
 /* Function for reading data from file to struct */
-void read_data_log(FILE *chat_log, int total_entries_log, chatlog logs[]){
+void read_data_log(FILE *user_log, int total_entries_log, chatlog logs[]){
 
   int i;
   char temp_timestamp[MAX_SIZE];
   chatlog data = {0};
   for(i = 0; i < total_entries_log; ++i){
-      fscanf(chat_log," [%[^][]] %[^:] %*[:] %[^\n]",
+      fscanf(user_log," [%[^][]] %[^:] %*[:] %[^\n]",
                                       temp_timestamp,
                                       data.username,
                                       data.message);
