@@ -43,9 +43,10 @@ void time_in_stream(int, chatlog logs[], time logs_hms[], int);
 /* Calc functions */
 void timestamp_to_seconds(int total_entries_log, chatlog logs[], time logs_hms[]);
 /* Navigation Functions */
-void user_threshold_navigation(int, chatlog logs[], int, wordlist word[], time logs_hms[]);
+void threshold_user_navigation(int, chatlog logs[], int, wordlist word[], time logs_hms[]);
 /* Qsort compare functions */
 int compare_points (const void * a, const void * b);
+int compare_points_hms (const void * a, const void * b);
 
 int main(void){
 
@@ -69,8 +70,8 @@ int main(void){
   
   scanf(" %d",&user_navigation);
   switch(user_navigation){
-    case(1): time_user_navigation(total_entries_log, logs, total_entries_wordlist, words, logs_hms);
-    case(2): user_threshold_navigation(total_entries_log, logs, total_entries_wordlist, words, logs_hms);
+    case(1): time_user_navigation(total_entries_log, logs, total_entries_wordlist, words, logs_hms); break;
+    case(2): threshold_user_navigation(total_entries_log, logs, total_entries_wordlist, words, logs_hms); break;
   }
 
 
@@ -146,7 +147,6 @@ void assign_points(int total_entries_log, int total_entries_wordlist, chatlog lo
 
 void print_over_threshold(int total_entries_log, chatlog logs[], int threshold, time logs_hms[], int input, int show_before){
 
-  printf("Enter");
   int i;
   chatlog *temp = malloc(sizeof(chatlog) * total_entries_log);
   time *temp_hms = malloc(sizeof(time) * total_entries_log);
@@ -160,7 +160,7 @@ void print_over_threshold(int total_entries_log, chatlog logs[], int threshold, 
     for (i = 0; i < total_entries_log; ++i){
       temp_hms[i] = logs_hms[i];
     }
-    qsort(temp_hms, total_entries_log, sizeof(time), compare_points);
+    qsort(temp_hms, total_entries_log, sizeof(time), compare_points_hms);
   }
   
   if (input == 1){
@@ -179,7 +179,7 @@ void print_over_threshold(int total_entries_log, chatlog logs[], int threshold, 
   }
   else if (input == 2 && show_before == 1){
     for (i = 0; i < total_entries_log; ++i){
-      if (temp[i].points >= threshold){
+      if (temp_hms[i].points >= threshold){
         printf("Points: %d |--| Timestamp: %d:%d:%d |--| Username: %-15s |--| Message: %s\n",temp_hms[i].points, temp_hms[i].hours, temp_hms[i].minutes, temp_hms[i].seconds, temp_hms[i].username, temp_hms[i].message);
       }
     }
@@ -199,7 +199,7 @@ void whitelist(int total_entries_log, chatlog logs[], int total_entries_wordlist
       }
     }
   }
-  if(input == 2 && show_before == 1){
+  else if(input == 2 && show_before == 1){
     for(i = 0; i < total_entries_log; ++i){
       for (j = 0; j < total_entries_wordlist; ++j){
         if(strstr(logs_hms[i].message, words[j].word) != NULL){
@@ -209,7 +209,7 @@ void whitelist(int total_entries_log, chatlog logs[], int total_entries_wordlist
       }
     }
   }
-  if(input == 2 && show_before == 0){
+  else if(input == 2 && show_before == 0){
     for(i = 0; i < total_entries_log; ++i){
       for (j = 0; j < total_entries_wordlist; ++j){
         if(strstr(logs_hms[i].message, words[j].word) != NULL && (logs_hms[i].hours >= 0 && logs_hms[i].minutes >= 0 && logs_hms[i].seconds >= 0)){
@@ -263,7 +263,7 @@ void time_user_navigation(int total_entries_log, chatlog logs[], int total_entri
 }
 
 /* Threshold navigation */
-void user_threshold_navigation(int total_entries_log, chatlog logs[], int total_entries_wordlist, wordlist word[], time logs_hms[]){
+void threshold_user_navigation(int total_entries_log, chatlog logs[], int total_entries_wordlist, wordlist word[], time logs_hms[]){
 
   int user_threshold = 0, user_stream_start = 0, show_before, user_navigation = 0;
   printf("\nEnter amount of points to show messages equal to or exceeding that value: ");
@@ -327,6 +327,45 @@ int compare_points (const void * a, const void * b){
     }
     else if (ia->points < ib->points){
       return +1;
+    }
+    else if (ia->timestamp > ib->timestamp){
+      return -1;
+    }
+    else if (ia->timestamp < ib->timestamp){
+      return +1;
+    }
+    else{ 
+      return 0;
+    }
+}
+
+int compare_points_hms (const void * a, const void * b){
+
+    time *ia = (time *)a;
+    time *ib = (time *)b;
+    if(ia->points > ib->points){
+      return -1;
+    }
+    else if (ia->points < ib->points){
+      return +1;
+    }
+    else if (ia->hours > ib->hours){
+      return +1;
+    }
+    else if (ia->hours < ib->hours){
+      return -1;
+    }
+    else if (ia->minutes > ib->minutes){
+      return +1;
+    }
+    else if (ia->minutes < ib->minutes){
+      return -1;
+    }
+    else if (ia->seconds > ib->seconds){
+      return +1;
+    }
+    else if (ia->seconds < ib->seconds){
+      return -1;
     }
     else{ 
       return 0;
