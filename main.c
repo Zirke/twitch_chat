@@ -31,7 +31,7 @@ void assign_points(int, int, chat_entry logs[], wordlist words[]);
 void print_over_threshold(int, chat_entry logs[], int);
 int compare_points (const void * a, const void * b);
 void file_change_option(FILE *word_list, int total_entries_wordlist);
-void file_addition(FILE *word_list/*, int total_entries_wordlist*/);
+void file_addition(FILE *word_list);
 void file_subtraction(FILE *original, int);
 
 int main(void){
@@ -163,18 +163,19 @@ int compare_points (const void * a, const void * b){
 
 void file_change_option(FILE *word_list, int total_entries_wordlist){
   char user_input[10];
-  do{
-  printf("Do you want to add or remove a word from the database?\n");
-  scanf("%s", user_input);
-  }while(strcmp(user_input, "add") != 0 && 
-         strcmp(user_input, "remove") != 0);
 
-  if(strcmp(user_input, "add") == 0){
-    file_addition(word_list);
-  }
-  else if(strcmp(user_input, "remove") == 0){
-    file_subtraction(word_list, total_entries_wordlist);
-  }
+  do{
+    printf("Do you want to add or remove a word from the database?\n");
+    scanf("%s", user_input);
+
+    if(strcmp(user_input, "add") == 0){
+      file_addition(word_list);
+    }
+    if(strcmp(user_input, "remove") == 0){
+      file_subtraction(word_list, total_entries_wordlist);
+      word_list = fopen("wordlist.txt", "r");
+    }
+  }while(strcmp(user_input, "exit") != 0);
 }
 
 void file_addition(FILE *word_list){
