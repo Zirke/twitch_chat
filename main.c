@@ -206,7 +206,7 @@ void main_message(chatlog *logs, int total_entries_log){
 }
 /* function reads all of the words from the file categories.txt into an array of structs (wordlist)*/
 void read_category_file(FILE fp, int category_total_entry, wordlist category_messages[]){
-  int i, question_begin, gameterm_begin, j=0;
+  int i, j=0;
   wordlist data = {0};
 
   for(i = 0; i < category_total_entry; ++i){
