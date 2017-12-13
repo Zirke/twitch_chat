@@ -173,7 +173,6 @@ void file_change_option(FILE *word_list, int total_entries_wordlist){
     }
     if(strcmp(user_input, "remove") == 0){
       file_subtraction(word_list, total_entries_wordlist);
-      word_list = fopen("wordlist.txt", "r");
     }
   }while(strcmp(user_input, "exit") != 0);
 }
@@ -236,5 +235,6 @@ fseek(original, 0, SEEK_SET);/*Ensures the file is read from the beginning to av
   fclose(new);
   remove("wordlist.txt");
   rename("new_wordlist.txt", "wordlist.txt");
+  original = fopen("wordlist.txt", "r");
   printf("Done.\n");
 }
