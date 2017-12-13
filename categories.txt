@@ -1,0 +1,710 @@
+[QUESTION]
+?
+What
+When
+Why
+Which
+Who
+How
+Where
+Whose
+Whom
+what
+when
+why
+which
+who
+how
+where
+whose
+whom
+WHAT
+WHEN
+WHY
+WHICH
+WHO
+HOW
+WHERE
+WHOSE
+WHOM
+[GAMETERM]
+aatrox
+ahri
+akali
+alistar
+amumu
+anivia
+annie
+ashe
+aurelion sol
+azir
+bard
+blitzcrank
+brand
+braum
+caitlyn
+camille
+cassiopeia
+cho'gath
+corki
+darius
+diana
+dr. mundo
+draven
+ekko
+elise
+evelynn
+ezreal
+fiddlesticks
+fiora
+galio
+gangplank
+garen
+gnar
+gragas
+graves
+hecarim
+heimerdinger
+illaoi
+irelia
+ivern
+jann
+jarvan iv
+jax
+jayce
+jhin
+jinx
+kalista
+karma
+karthus
+kassadin
+katarina
+kayle
+kayn
+kennen
+kha'zix
+kindred
+kled
+kog'maw
+leblanc
+lee sin
+leona
+lissandra
+lucian
+lulu
+lux
+malphite
+malzahar
+maokai
+master yi
+miss fortune
+mordekaiser
+morgana
+nami
+nasus
+nautilus
+nidalee
+nocturne
+nunu
+olaf
+orianna
+ornn
+pantheon
+poppy
+quinn
+rakan
+rammus
+rek'sai
+renekton
+rengar
+riven
+rumble
+ryze
+sejuani
+shaco
+shen
+shyvana
+singed
+sion
+sivir
+skarner
+sona
+soraka
+swain
+syndra
+tahm kench
+taliyah
+talon
+taric
+teemo
+thresh
+tristana
+trundle
+tryndamere
+twisted fate
+twitch
+udyr
+urgot
+varus
+vayne
+veigar
+vel'koz
+vi
+viktor
+vladimir
+volibear
+warwick
+wukong
+xayah
+xerath
+xin zhao
+yasuo
+yorick
+zac
+zed
+ziggs
+zilean
+zoe
+zyra
+abyssal mask
+adaptive helm
+aegis of the legion
+aether wisp
+amplifying tome
+ancient coin
+arcane sweeper
+arcane sweeper
+archangel's staff
+ardent censer
+athene's unholy grail
+b. f. sword
+bami's cinder
+banner of command
+banshee's veil
+berserker's greaves
+bilgewater cutlass
+blade of the ruined king
+blasting wand
+boots of mobility
+boots of speed
+boots of swiftness
+bramble vest
+brawler's gloves
+catalyst of aeons
+caulfield's warhammer
+chain vest
+chalice of harmony
+circlet of the iron solari
+cloak of agility
+cloak of stars
+cloth armor
+commencing stopwatch
+control ward
+corrupting potion
+cosmic shackle
+crystalline bracer
+cull
+dagger
+dark matter scythe
+dark star sigil
+dead man's plate
+death's dance
+death's daughter
+dervish blade
+diet poro-snax
+doran's blade
+doran's ring
+doran's shield
+duskblade of draktharr
+edge of night
+elixir of iron
+elixir of sorcery
+elixir of wrath
+entropy field
+espresso snax
+essence reaver
+executioner's calling
+explorer's ward
+eye of the equinox
+eye of the herald
+eye of the oasis
+eye of the watchers
+face of the mountain
+faerie charm
+farsight alteration
+fiendish codex
+fire at will
+flash zone
+forbidden idol
+forgefire cape
+frost queen's claim
+frosted snax
+frostfang
+frozen heart
+frozen mallet
+gargoyle stoneplate
+giant slayer
+giant's belt
+glacial shroud
+golden transcendence
+gravity boots
+greater stealth totem
+greater vision totem
+guardian angel
+guardian's hammer
+guardian's horn
+guardian's orb
+guinsoo's rageblade
+haunting guise
+health potion
+hexdrinker
+hextech glp-800
+hextech gunblade
+hextech protobelt-01
+hextech revolver
+hunter's machete
+hunter's potion
+hunter's talisman
+iceborn gauntlet
+infernal mask
+infinity edge
+ionian boots of lucidity
+jaurim's fist
+kindlegem
+kircheis shard
+knight's vow
+last whisper
+liandry's torment
+lich bane
+locket of the iron solari
+long sword
+lord dominik's regards
+lord van damm's pillager
+lost chapter
+luden's echo
+manamune
+maw of malmortius
+mejai's soulstealer
+mercurial scimitar
+mercury's treads
+mikael's crucible
+molten edge
+moonflair spellblade
+morellonomicon
+mortal reminder
+muramana
+nashor's tooth
+needlessly large rod
+negatron cloak
+nexus siege: siege weapon slot
+ninja tabi
+nomad's medallion
+null-magic mantle
+ohmwrecker
+oracle alteration
+oracle's extract
+overlord's bloodmail
+perfect hex core
+phage
+phantom dancer
+pickaxe
+poacher's dirk
+poro-snax
+port pad
+prototype hex core
+quicksilver sash
+rabadon's deathcap
+rabadon's deathcrown
+rainbow snax party pack!
+raise morale
+randuin's omen
+rapid firecannon
+raptor cloak
+ravenous hydra
+recurve bow
+redemption
+refillable potion
+rejuvenation bead
+relic shield
+righteous glory
+rod of ages
+ruby crystal
+ruby sightstone
+runaan's hurricane
+rylai's crystal scepter
+salvation
+sanguine blade
+sapphire crystal
+seeker's armguard
+seer stone (trinket)
+seraph's embrace
+serrated dirk
+sheen
+shield totem
+siege ballista
+siege refund
+siege sight warder
+siege teleport
+sightstone
+singularity lantern
+skirmisher's sabre
+slightly magical boots
+sorcerer's shoes
+soul anchor
+spectre's cowl
+spellthief's edge
+spirit visage
+stalker's blade
+statikk shiv
+sterak's gage
+stinger
+stopwatch
+sunfire cape
+super spicy snax
+sweeping lens
+talisman of ascension
+targon's brace
+tear of the goddess
+the black cleaver
+the black spear
+the bloodthirster
+the dark seal
+the hex core mk-1
+the hex core mk-2
+the lightbringer
+the obsidian cleaver
+thornmail
+tiamat
+titanic hydra
+total biscuit of rejuvenation
+tower: beam of ruination
+tower: storm bulwark
+tracker's knife
+trinity force
+trinity fusion
+vampiric scepter
+vanguard banner
+void staff
+warden's mail
+warding totem
+warmog's armor
+wicked hatchet
+wit's end
+wooglet's witchcap
+wooglet's witchcrown
+youmuu's ghostblade
+zeal
+zeke's convergence
+zhonya's hourglass
+zhonya's paradox
+zz'rot portal
+ghost
+heal
+clarity
+to the king!
+poro toss
+mark
+cleanse
+teleport
+smite
+barrier
+ignite
+exhaust
+flash
+[EMOJI]
+:)
+:(
+:o
+:z
+B)
+:\
+;)
+;p
+:p
+R)
+o_O
+:D
+>(
+<3
+:)
+:(
+:o
+:z
+B)
+:\
+;)
+;p
+:p
+R)
+o_O
+:D
+>(
+<3
+<3
+R)
+:>
+<]
+:7
+:(
+:P
+;P
+:O
+:\
+:|
+:s
+:D
+o_O
+>(
+:)
+B)
+;)
+#/
+4Head
+AMPTropPunch
+ANELE
+AngryJack
+ArgieB8
+ArigatoNas
+ArsonNoSexy
+AsianGlow
+BCWarrior
+BJBlazkowicz
+BabyRage
+BatChest
+BegWan
+BibleThump
+BigBrother
+BigPhish
+BlargNaut
+BlessRNG
+BloodTrail
+BrainSlug
+BrokeBack
+BudStar
+BuddhaBar
+CarlSmile
+ChefFrank
+CoolCat
+CoolStoryBob
+CorgiDerp
+CrreamAwk
+CurseLit
+DAESuppy
+DBstyle
+DansGame
+DarkMode
+DatSheffy
+DendiFace
+DogFace
+DoritosChip
+DxCat
+EleGiggle
+EntropyWins
+FUNgineer
+FailFish
+FrankerZ
+FreakinStinkin
+FunRun
+FutureMan
+GTChimp
+GingerPower
+GivePLZ
+GoHam
+GrammarKing
+GreenTeam
+HSCheers
+HSLight
+HSVoid
+HSWP
+HappyJack
+HassaanChop
+HassanChop
+HeyGuys
+HotPokket
+HumbleLife
+InuyoFace
+ItsBoshyTime
+JKanStyle
+Jebaited
+JonCarnage
+KAPOW
+Kappa
+KappaClaus
+KappaPride
+KappaRoss
+KappaWealth
+Kappu
+Keepo
+KevinTurtle
+Kippa
+KonCha
+Kreygasm
+LUL
+MVGame
+Mau5
+MayDay
+MikeHogu
+MingLee
+MorphinTime
+MrDestructoid
+NinjaGrumpy
+NomNom
+NotATK
+NotLikeThis
+OSfrog
+OSkomodo
+OSsloth
+OhMyDog
+OneHand
+OpieOP
+OptimizePrime
+PJSalt
+PJSugar
+PMSTwin
+PRChase
+PanicVis
+PartyTime
+PeoplesChamp
+PermaSmug
+PeteZaroll
+PicoMause
+PipeHype
+PogChamp
+Poooound
+PowerUpL
+PowerUpR
+PraiseIt
+PrimeMe
+PunOko
+PunchTrees
+QuadDamage
+RED
+RaccAttack
+RalpherZ
+RedCoat
+RedTeam
+ResidentSleeper
+RitzMitz
+RlyTho
+RuleFive
+SMOrc
+SSSsss
+SabaPing
+SeemsGood
+ShadyLulu
+ShazBotstix
+SlyJeremy
+SmoocherZ
+SoBayed
+SoonerLater
+Squid1
+Squid2
+Squid3
+Squid4
+StinkyCheese
+StoneLightning
+StrawBeary
+SuperVinlin
+SwiftRage
+TBAngel
+TBCrunchy
+TBTacoBag
+TBTacoProps
+TF2John
+TPFufun
+TPcrunchyroll
+TTours
+TakeNRG
+TearGlove
+TehePelo
+ThankEgg
+TheIlluminati
+TheRinger
+TheTarFu
+TheThing
+ThunBeast
+TinyFace
+TooSpicy
+TotinosRecruit
+TotinosRing
+TriHard
+TwitchLit
+TwitchRPG
+TwitchUnity
+TwitchVotes
+UWot
+UnSane
+UncleNox
+VaultBoy
+VoHiYo
+VoteNay
+VoteYea
+WTRuck
+WholeWheat
+WutFace
+XboxBlack
+XboxElite
+YouDontSay
+YouWHY
+bleedPurple
+cmonBruh
+copyThis
+duDudu
+imGlitch
+mcaT
+panicBasket
+pastaThat
+riPepperonis
+twitchRaid
+nb37
+nb3Bad
+nb3Baka
+nb3Bliss
+nb3Blush
+nb3Boosted
+nb3CYA
+nb3Cool
+nb3Coolstory
+nb3Crazy
+nb3Cry
+nb3Cute
+nb3Dribbler
+nb3Fail
+nb3GG
+nb3Gasm
+nb3Giggle
+nb3Give
+nb3H
+nb3HA
+nb3Happy
+nb3Hello
+nb3Hide
+nb3Hug
+nb3Hype
+nb3Kappachino
+nb3Kiss
+nb3LAG
+nb3LUL
+nb3Late
+nb3Laugh
+nb3Lewd
+nb3Lick
+nb3Love
+nb3Mad
+nb3Meh
+nb3Notlikethis
+nb3Nya
+nb3OHMY
+nb3OMG
+nb3Pepe
+nb3Saiyan
+nb3Shrug
+nb3Ten
+nb3Thinking
+nb3Three
+nb3W
+nb3WUT
+nb3Weeb
+nb3Welcome
+nb3Heart
+nb3Lewdest
