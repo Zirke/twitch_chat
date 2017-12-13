@@ -27,7 +27,7 @@ void assign_points(int, int, chatlog logs[], wordlist words[]);
 void print_over_threshold(int, chatlog logs[], int);
 int compare_points (const void * a, const void * b);
 void main_message(chatlog *logs, int total_entries_log);
-void read_category_file(FILE fp, int category_total_entry, wordlist category_messages[]);
+void read_category_file(FILE* fp, int category_total_entry, wordlist category_messages[]);
 void message_categoriser(wordlist category_messages[], chatlog messages[], int category_total_entry, chatlog logs[], int* total_message, int total_entries_log);
 void category_start_position(int category_total_entry, wordlist category_messages[], int *question_begin, int *gameterm_begin, int *emoji_begin);
 void database_maker(int start_position, int fin_position, wordlist database[], wordlist category_messages[], int* total_entries);
@@ -171,7 +171,7 @@ void main_message(chatlog *logs, int total_entries_log){
   wordlist *category_messages = malloc(sizeof(wordlist) * category_total_entry);
   chatlog *messages = malloc(sizeof(chatlog) * category_total_entry);
   
-  read_category_file(*fp, category_total_entry, category_messages);
+  read_category_file(fp, category_total_entry, category_messages);
   category_start_position(category_total_entry, category_messages, &question_begin, &gameterm_begin, &emoji_begin); 
   wordlist *questions = malloc(sizeof(wordlist) * gameterm_begin);
   wordlist *gameterm = malloc(sizeof(wordlist) * (emoji_begin));
@@ -205,12 +205,12 @@ void main_message(chatlog *logs, int total_entries_log){
   /* Mangler at tjekke om [CATEGORY] er med i databaserne*/
 }
 /* function reads all of the words from the file categories.txt into an array of structs (wordlist)*/
-void read_category_file(FILE fp, int category_total_entry, wordlist category_messages[]){
+void read_category_file(FILE* fp, int category_total_entry, wordlist category_messages[]){
   int i, j=0;
   wordlist data = {0};
 
   for(i = 0; i < category_total_entry; ++i){
-    fscanf(&fp," %[^\n]",data.word);                     /* Scans untill newline an saves the word into "data.word"*/
+    fscanf(fp," %[^\n]",data.word);                     /* Scans untill newline an saves the word into "data.word"*/
     category_messages[i] = data;
   }
 }
