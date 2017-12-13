@@ -107,9 +107,7 @@ int main(void){
   fclose(user_log);
   free(words);
   free(logs);
-  free(logs_hms);
-    
-    
+  free(logs_hms); 
   return 0;
 }
 
