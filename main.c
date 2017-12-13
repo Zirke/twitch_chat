@@ -82,15 +82,26 @@ int main(void){
   read_data_log(user_log, total_entries_log, logs);
   
   assign_points(total_entries_log, total_entries_wordlist, logs, words);
-  
-  printf("Enter some shit: ");
+
+  do{
+  printf("Welcome to Twitch Chat Analyzer 1.0:\n\n");
+  printf("____________________________________\n");
+  printf("|1) Whitelist                      |\n");
+  printf("|2) Point Threshold                |\n");
+  printf("|3) Categories                     |\n");
+  printf("|4) Add or Remove Wordlist         |\n");
+  printf("|9) Exit.                          |\n");
+  printf("|----------------------------------|\n\n");
+  printf("Select an option by entering the number to the left of your choice.\nPress (9) to exit. > ");
   scanf(" %d",&user_navigation);
   switch(user_navigation){
     case(1): time_user_navigation(total_entries_log, logs, total_entries_wordlist, words, logs_hms); break;
     case(2): threshold_user_navigation(total_entries_log, logs, total_entries_wordlist, words, logs_hms); break;
     case(3): main_message(logs, total_entries_log); break;
     case(4): file_change_option(user_wordlist, total_entries_wordlist); break;
-  }
+    case(9): printf("Exiting. Bye!\n"); break;
+    default: printf("Error: Unrecognized input. Please try again.\n");
+  }}while(user_navigation != 9);
 
   fclose(user_wordlist);
   fclose(user_log);
@@ -262,14 +273,16 @@ void time_user_navigation(int total_entries_log, chatlog logs[], int total_entri
   printf("|2) Time according to stream start.|\n");
   printf("|9) Exit.                          |\n");
   printf("|----------------------------------|\n\n");
+  do{
   printf("Select an option by entering the number to the left of your choice.\nPress (9) to exit. > ");
   scanf("%d",&user_navigation);
   switch(user_navigation){
     case(1): whitelist(total_entries_log, logs, total_entries_wordlist, words, logs_hms, user_navigation, 0); break;
     case(2): {user_stream_start = stream_start(&show_before); time_in_stream(total_entries_log, logs, logs_hms, user_stream_start); 
               whitelist(total_entries_log, logs, total_entries_wordlist, words, logs_hms, user_navigation, show_before); break;}
-    case(9): printf("Exiting.\n"); break;
-  } 
+    case(9): printf("Exiting.\n"); return;
+    default: printf("Error: Unrecognized input. Please try again.\n");
+  }}while(user_navigation != 9);
 }
 
 /* Threshold navigation */
@@ -284,14 +297,16 @@ void threshold_user_navigation(int total_entries_log, chatlog logs[], int total_
   printf("|2) Time according to stream start.|\n");
   printf("|9) Exit.                          |\n");
   printf("|----------------------------------|\n\n");
+  do{
   printf("Select an option by entering the number to the left of your choice.\nPress (9) to exit. > ");
   scanf("%d",&user_navigation);
   switch(user_navigation){
     case(1): print_over_threshold(total_entries_log, logs, user_threshold, logs_hms, user_navigation, 0); break;
     case(2): {user_stream_start = stream_start(&show_before); time_in_stream(total_entries_log, logs, logs_hms, user_stream_start); 
               print_over_threshold(total_entries_log, logs, user_threshold, logs_hms, user_navigation, show_before); break;}
-    case(9): printf("Exiting.\n"); break;
-  }
+    case(9): printf("Exiting.\n"); return;
+    default: printf("Error: Unrecognized input. Please try again.\n");
+  }}while(user_navigation != 9);
 }
 
 /* Function to convert timestamps to time after stream */
@@ -382,7 +397,6 @@ int compare_points_hms (const void * a, const void * b){
     }
 }
 
-/* HERFRA SKAL DER INDSÆTTES I MAIN FILEN*/
 /* function to categorisation of messages*/
 void main_message(chatlog *logs, int total_entries_log){
   FILE *fp;
@@ -402,21 +416,28 @@ void main_message(chatlog *logs, int total_entries_log){
   database_maker(gameterm_begin, emoji_begin, gameterm, category_messages, &gameterm_fin); //det skal nok være emoji_begin - 1
   database_maker(emoji_begin, category_total_entry, emoji, category_messages, &emoji_fin);
 
-  printf("Please enter the a number to print the corresponding messages within the category \n"); //lyder lidt ondsvagt, skal nok ændre til noget andet
-  printf("Enter 1) for questions\n Enter 2) for messages with gameterms \n Enter 3) for messages with Emoji\n");
+  printf("Choose a category to display:\n\n");
+  printf("____________________________________\n");
+  printf("|1) Questions.                     |\n");
+  printf("|2) Game Terms.                    |\n");
+  printf("|9) Emotes.                        |\n");
+  printf("|----------------------------------|\n");
+  do{
+  printf("\nSelect an option by entering the number to the left of your choice.\nPress (8) to show menu or (9) to exit. > ");
   scanf(" %d", &user_input);
-
-  if( user_input == 1){
-    message_categoriser(questions, messages, question_fin, logs, &total_message, total_entries_log);
-  }
-  else if(user_input == 2){
-    message_categoriser(gameterm, messages, gameterm_fin, logs, &total_message, total_entries_log);
-  }
-  else if(user_input == 3){
-    message_categoriser(emoji, messages, emoji_fin, logs, &total_message, total_entries_log);
-  }
-  
-  print_category(messages, total_message);
+  switch(user_input){
+    case(1): message_categoriser(questions, messages, question_fin, logs, &total_message, total_entries_log); print_category(messages, total_message); break;
+    case(2): message_categoriser(gameterm, messages, gameterm_fin, logs, &total_message, total_entries_log); print_category(messages, total_message); break;
+    case(3): message_categoriser(emoji, messages, emoji_fin, logs, &total_message, total_entries_log); print_category(messages, total_message); break;
+    case(8): printf("Choose a category to display:\n\n");
+             printf("____________________________________\n");
+             printf("|1) Questions.                     |\n");
+             printf("|2) Game Terms.                    |\n");
+             printf("|3) Emotes.                        |\n");
+             printf("|9) Exit.                          |\n");
+             printf("|----------------------------------|\n\n"); break;
+    case(9): printf("Exiting.\n"); break;
+  }}while(user_input != 9);
 
   free(messages);
   free(questions);
@@ -496,20 +517,20 @@ void file_change_option(FILE *word_list, int total_entries_wordlist){
   char user_input[10];
 
   do{
-    printf("Do you want to add or remove a word from the database?\n");
+    printf("Do you want to add or remove a word from the database?\nEnter \"add\", \"remove\" or \"exit\": ");
     scanf("%s", user_input);
 
-    if(strcmp(user_input, "add") == 0){
+    if(strcmp(user_input, "add") == 0 || strcmp(user_input, "Add") == 0){
       file_addition(word_list);
     }
-    if(strcmp(user_input, "remove") == 0){
+    if(strcmp(user_input, "remove") == 0 || strcmp(user_input, "Remove") == 0){
       file_subtraction(word_list, total_entries_wordlist);
     }
-  }while(strcmp(user_input, "exit") != 0);
+  }while(strcmp(user_input, "exit") != 0 && strcmp(user_input, "Exit") != 0);
 }
 
 void file_addition(FILE *word_list){
-  char user_input_word[MAX_SIZE],user_input_score[10], final_word[MAX_SIZE_WITH_POINTS];
+  char user_input_word[MAX_SIZE], user_input_score[10], final_word[MAX_SIZE_WITH_POINTS];
   int i;
 
   printf("Add a word to the database: \n");/*The user specifies a word to be added.*/
