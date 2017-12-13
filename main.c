@@ -345,60 +345,61 @@ void timestamp_to_seconds(int total_entries_log, chatlog logs[], time logs_hms[]
 
 int compare_points (const void * a, const void * b){
 
-    chatlog *ia = (chatlog *)a;
-    chatlog *ib = (chatlog *)b;
-    if(ia->points > ib->points){
-      return -1;
-    }
-    else if (ia->points < ib->points){
-      return +1;
-    }
-    else if (ia->timestamp > ib->timestamp){
-      return -1;
-    }
-    else if (ia->timestamp < ib->timestamp){
-      return +1;
-    }
-    else{ 
-      return 0;
-    }
+  chatlog *ia = (chatlog *)a;
+  chatlog *ib = (chatlog *)b;
+  if(ia->points > ib->points){
+    return -1;
+  }
+  else if (ia->points < ib->points){
+    return +1;
+  }
+  else if (ia->timestamp > ib->timestamp){
+    return -1;
+  }
+  else if (ia->timestamp < ib->timestamp){
+    return +1;
+  }
+  else{ 
+    return 0;
+  }
 }
 
 int compare_points_hms (const void * a, const void * b){
 
-    time *ia = (time *)a;
-    time *ib = (time *)b;
-    if(ia->points > ib->points){
-      return -1;
-    }
-    else if (ia->points < ib->points){
-      return +1;
-    }
-    else if (ia->hours > ib->hours){
-      return +1;
-    }
-    else if (ia->hours < ib->hours){
-      return -1;
-    }
-    else if (ia->minutes > ib->minutes){
-      return +1;
-    }
-    else if (ia->minutes < ib->minutes){
-      return -1;
-    }
-    else if (ia->seconds > ib->seconds){
-      return +1;
-    }
-    else if (ia->seconds < ib->seconds){
-      return -1;
-    }
-    else{ 
-      return 0;
-    }
+  time *ia = (time *)a;
+  time *ib = (time *)b;
+  if(ia->points > ib->points){
+    return -1;
+  }
+  else if (ia->points < ib->points){
+    return +1;
+  }
+  else if (ia->hours > ib->hours){
+    return +1;
+  }
+  else if (ia->hours < ib->hours){
+    return -1;
+  }
+  else if (ia->minutes > ib->minutes){
+    return +1;
+  }
+  else if (ia->minutes < ib->minutes){
+    return -1;
+  }
+  else if (ia->seconds > ib->seconds){
+    return +1;
+  }
+  else if (ia->seconds < ib->seconds){
+    return -1;
+  }
+  else{ 
+    return 0;
+  }
 }
 
 /* function to categorisation of messages*/
 void main_message(chatlog *logs, int total_entries_log){
+
   FILE *fp;
   fp = fopen("categories.txt", "r");
   int category_total_entry = count_all_entries(fp);
@@ -420,7 +421,8 @@ void main_message(chatlog *logs, int total_entries_log){
   printf("____________________________________\n");
   printf("|1) Questions.                     |\n");
   printf("|2) Game Terms.                    |\n");
-  printf("|9) Emotes.                        |\n");
+  printf("|3) Emotes.                        |\n");
+  printf("|9) Exit.                          |\n");
   printf("|----------------------------------|\n");
   do{
   printf("\nSelect an option by entering the number to the left of your choice.\nPress (8) to show menu or (9) to exit. > ");
@@ -448,8 +450,9 @@ void main_message(chatlog *logs, int total_entries_log){
 }
 /* function reads all of the words from the file categories.txt into an array of structs (wordlist)*/
 void read_category_file(FILE* fp, int category_total_entry, wordlist category_messages[]){
+
   int i, j=0;
-  wordlist data = {0};
+  wordlist data;
 
   for(i = 0; i < category_total_entry; ++i){
     fscanf(fp," %[^\n]",data.word);                     /* Scans untill newline an saves the word into "data.word"*/
@@ -459,6 +462,7 @@ void read_category_file(FILE* fp, int category_total_entry, wordlist category_me
 
 /* Function saves the position of the categories into the corresponding int pointer*/
 void category_start_position(int category_total_entry, wordlist category_messages[], int *question_begin, int *gameterm_begin, int *emoji_begin){
+
   int i;
 
   for(i = 0; i < category_total_entry; ++i){
@@ -476,6 +480,7 @@ void category_start_position(int category_total_entry, wordlist category_message
 
 /* Function initializes an array of structs with words corresponding a category*/
 void database_maker(int start_position, int fin_position, wordlist database[], wordlist category_messages[], int* total_entries){
+
   int i, j = 0;
   for(i = start_position; i < fin_position; i++){  /* the for-loop runs from the startposition of the particular category till the finish position. */
     database[j] = category_messages[i];
@@ -506,6 +511,7 @@ void message_categoriser(wordlist category_messages[], chatlog messages[],
 
 /* function prints timestamp, username and message for each message part of the chosen category*/
 void print_category(chatlog messages[], int total_message){
+
   int i;
   
   for(i = 0; i < total_message; i++){
@@ -514,6 +520,7 @@ void print_category(chatlog messages[], int total_message){
 }
 
 void file_change_option(FILE *word_list, int total_entries_wordlist){
+
   char user_input[10];
 
   do{
@@ -530,6 +537,7 @@ void file_change_option(FILE *word_list, int total_entries_wordlist){
 }
 
 void file_addition(FILE *word_list){
+
   char user_input_word[MAX_SIZE], user_input_score[10], final_word[MAX_SIZE_WITH_POINTS];
   int i;
 
@@ -551,6 +559,7 @@ void file_addition(FILE *word_list){
 
 /*Copies all lines except the one to be deleted in to a new file, rename new file to old file.*/
 void file_subtraction(FILE *original, int total_entries_wordlist){
+
   int line_count = 0, flag = 0, i;
   char delete_word[MAX_SIZE], word_storage_nopoints[MAX_SIZE], word_storage[MAX_SIZE_WITH_POINTS];
   wordlist_copy temp[total_entries_wordlist];
