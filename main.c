@@ -177,8 +177,8 @@ void main_message(chatlog *logs, int total_entries_log){
   wordlist *gameterm = malloc(sizeof(wordlist) * (emoji_begin));
   wordlist *emoji = malloc(sizeof(wordlist) * (category_total_entry - emoji_begin));
   
-  database_maker(0, gameterm_begin -1, questions, category_messages, &question_fin);
-  database_maker(gameterm_begin, emoji_begin, gameterm, category_messages, &gameterm_fin); //det skal nok være emoji_begin - 1
+  database_maker(question_begin, gameterm_begin -1, questions, category_messages, &question_fin);
+  database_maker(gameterm_begin, emoji_begin -1 , gameterm, category_messages, &gameterm_fin); //det skal nok være emoji_begin - 1
   database_maker(emoji_begin, category_total_entry, emoji, category_messages, &emoji_fin);
 
   printf("Please enter the a number to print the corresponding messages within the category \n"); //lyder lidt ondsvagt, skal nok ændre til noget andet
@@ -195,6 +195,7 @@ void main_message(chatlog *logs, int total_entries_log){
     message_categoriser(emoji, messages, emoji_fin, logs, &total_message, total_entries_log);
   }
   
+
   print_category(messages, total_message);
 
   free(messages);
