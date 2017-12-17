@@ -411,8 +411,8 @@ void main_message(chatlog *logs, int total_entries_log){
   wordlist *gameterm = malloc(sizeof(wordlist) * (emoji_begin));
   wordlist *emoji = malloc(sizeof(wordlist) * (category_total_entry - emoji_begin));
   
-  database_maker(0, gameterm_begin -1, questions, category_messages, &question_fin);
-  database_maker(gameterm_begin, emoji_begin, gameterm, category_messages, &gameterm_fin); //det skal nok være emoji_begin - 1
+  database_maker(question_begin, gameterm_begin -1, questions, category_messages, &question_fin);
+  database_maker(gameterm_begin, emoji_begin -1 , gameterm, category_messages, &gameterm_fin);
   database_maker(emoji_begin, category_total_entry, emoji, category_messages, &emoji_fin);
 
   printf("Choose a category to display:\n\n");
