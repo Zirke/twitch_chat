@@ -3,7 +3,7 @@
 #include <string.h>
 
 #define MAX_SIZE 50
-#define MAX_SIZE_MESSAGE 300
+#define MAX_SIZE_MESSAGE 1536
 #define MAX_SIZE_WITH_POINTS (MAX_SIZE + 5)
 #define MINUTES 60
 #define HOURS (MINUTES*60)
