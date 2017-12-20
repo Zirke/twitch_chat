@@ -87,39 +87,39 @@ It is possible to edit the list of words that is used to judge messages directly
 This can be done by entering the number '4' at the main menu.
 
 ##### Example
-´´´
+```
 Welcome to Twitch Chat Analyzer 1.0:
 
-
-1. Whitelist                      
-2. Point Threshold                
-3. Categories                     
-4. Add or Remove Wordlist         
-9. Exit.                          
-
+____________________________________
+|1) Whitelist                      |
+|2) Point Threshold                |
+|3) Categories                     |
+|4) Add or Remove Wordlist         |
+|9) Exit.                          |
+|----------------------------------|
 
 Select an option by entering the number to the left of your choice.
 Press (9) to exit. > 4
-´´´
+```
 
 This will bring you to the file editing menu. From here you can either enter 'add' to add an entry to the list, enter 'remove' to remove an entry, or enter 'exit' to return to the main menu.
 
 ##### Example
-´´´
+```
 Do you want to add or remove a word from the database?
 Enter "add", "remove" or "exit": add
-´´´
+```
 
 If you enter 'add', the program will prompt you for a word that you want to add.
 After adding a word, it will then prompt you for how high the score should be set for that particular word.
 
 ##### Example
-´´´
+```
 Add a word to the database:
 fish
 Set the score for the new word:
 10
-´´´
+```
 
 Once the word has been added, you will return to the file editing menu.
 Should you enter 'remove' instead, you will be prompted to enter a word.
@@ -127,10 +127,10 @@ Once entered, all entries in the word list containing the exact same word will b
 You need not enter the score the word has.
 
 ##### Example
-´´´
+```
 Which word do you want to delete?:
 fish
-´´´
+```
 
 Once all entries with that word has been removed, you will be returned to the file editing menu.
 Should you type 'exit' here, you will be returned to the main menu.
