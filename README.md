@@ -90,13 +90,13 @@ This can be done by entering the number '4' at the main menu.
 ´´´
 Welcome to Twitch Chat Analyzer 1.0:
 
-____________________________________
-|1) Whitelist                      |
-|2) Point Threshold                |
-|3) Categories                     |
-|4) Add or Remove Wordlist         |
-|9) Exit.                          |
-|----------------------------------|
+
+1. Whitelist                      
+2. Point Threshold                
+3. Categories                     
+4. Add or Remove Wordlist         
+9. Exit.                          
+
 
 Select an option by entering the number to the left of your choice.
 Press (9) to exit. > 4
