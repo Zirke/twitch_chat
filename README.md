@@ -32,6 +32,17 @@ Kappa, 3
 Trihard, 4
    ```
 
+#### Categories file
+
+A single word per line which either indicates one of the three categories question, game term or emoji in uppercase letter and in brackets or word part of the white list corresponding a category is written in the categories.txt file. It is possible to add a word in a category by writting it on a line after the category's name directly in the text file. However, it is not possible for user to make a new category.
+
+##### Example
+```
+[QUESTION]
+?
+What
+```
+
 Navigation of the program
 -------------------------
 
@@ -69,3 +80,76 @@ Would you like to show messages from before the stream started?> 1
 ```
 
 The messages that show minus values as timestamps are messages sent before the stream went live.
+
+#### File editing
+
+It is possible to edit the list of words that is used to judge messages directly from the program.
+This can be done by entering the number '4' at the main menu.
+
+##### Example
+´´´
+Welcome to Twitch Chat Analyzer 1.0:
+
+____________________________________
+|1) Whitelist                      |
+|2) Point Threshold                |
+|3) Categories                     |
+|4) Add or Remove Wordlist         |
+|9) Exit.                          |
+|----------------------------------|
+
+Select an option by entering the number to the left of your choice.
+Press (9) to exit. > 4
+´´´
+
+This will bring you to the file editing menu. From here you can either enter 'add' to add an entry to the list, enter 'remove' to remove an entry, or enter 'exit' to return to the main menu.
+
+##### Example
+´´´
+Do you want to add or remove a word from the database?
+Enter "add", "remove" or "exit": add
+´´´
+
+If you enter 'add', the program will prompt you for a word that you want to add.
+After adding a word, it will then prompt you for how high the score should be set for that particular word.
+
+##### Example
+´´´
+Add a word to the database:
+fish
+Set the score for the new word:
+10
+´´´
+
+Once the word has been added, you will return to the file editing menu.
+Should you enter 'remove' instead, you will be prompted to enter a word.
+Once entered, all entries in the word list containing the exact same word will be deleted.
+You need not enter the score the word has.
+
+##### Example
+´´´
+Which word do you want to delete?:
+fish
+´´´
+
+Once all entries with that word has been removed, you will be returned to the file editing menu.
+Should you type 'exit' here, you will be returned to the main menu.
+
+#### Categorisation of chat messages
+
+It is possible to display messages related to one of the three categories questions, game terms, and emoji directly from the program.
+This can be done by entering the number '3' at the main menu.
+There are four options to display messages related to a category:
+
+1. Questions
+2. Game Terms
+3. Emoji
+4. Exit message categorisation function
+
+*Questions* displays messages related to questions.
+*Game term* displays messages related to game terms in League of Legends.
+*Emoji* displays messages related to emojis.
+To select Questions, press 1. 
+To select Game terms, press 2. 
+To select Emoji, press 3.
+In order to exit the function, press 9.
