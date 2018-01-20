@@ -68,7 +68,7 @@ int main(void){
 
   FILE *user_log, *user_wordlist;
   user_log = fopen("twitchlogs.txt", "r");
-  user_wordlist = fopen("wordlist.txt", "r");
+  user_wordlist = fopen("wordlist.txt", "r+");
 
   int total_entries_wordlist = count_all_entries(user_wordlist);
   int total_entries_log = count_all_entries(user_log);
@@ -537,7 +537,7 @@ void file_change_option(FILE *word_list, int total_entries_wordlist){
 void file_addition(FILE *word_list){
 
   char user_input_word[MAX_SIZE], user_input_score[10], final_word[MAX_SIZE_WITH_POINTS];
-  int i;
+  //int i;
 
   printf("Add a word to the database: \n");/*The user specifies a word to be added.*/
   scanf("%s", user_input_word);
@@ -547,11 +547,13 @@ void file_addition(FILE *word_list){
 
   /*The word and the score are then combined, following the standard structure
     of the database. The combined string is then placed in the database file.*/
-  strcpy(final_word, "\n");
+  strcpy(final_word, " \n");
   strcat(final_word, user_input_word);
   strcat(final_word, ", ");
   strcat(final_word, user_input_score);
 
+  printf("%s \n", final_word);
+  
   fputs(final_word, word_list);
 }
 
@@ -576,6 +578,7 @@ fseek(original, 0, SEEK_SET);/*Ensures the file is read from the beginning to av
 
   /*Checks whether or not an entry should be kept. Stores it if it should.*/
     if(strcmp(word_storage_nopoints, delete_word) != 0){
+      //printf("%s %s %d \n", word_storage_nopoints, delete_word, line_count);
       strcpy(temp[line_count].word, word_storage);
       ++line_count;
     }
